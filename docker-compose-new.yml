@@ -1,0 +1,82 @@
+version: '2.2'
+services:
+  aws:
+    image: anigeo/awscli
+    volumes:
+      - $PWD:/app
+    working_dir: /app
+    env_file: .env
+  terraform:
+    build:
+      dockerfile: terraform.Dockerfile
+      context: .
+    env_file: .env
+    volumes:
+      - $PWD:/app
+    working_dir: /app
+  selenium:
+    image: selenium/standalone-chrome-debug
+    ports:
+      - 4444:4444
+      - 5900:5900
+  integration-tests:
+    build:
+      dockerfile: rspec.dockerfile
+      context: .
+    environment:
+      SELENIUM_HOST: selenium
+      SELENIUM_PORT: 4444
+      WEBSITE_URL: http://doesnt.exist
+    volumes:
+      - $PWD:/app
+    entrypoint: rspec
+    command:
+      - --pattern
+      - /app/spec/integration/*_spec.rb
+  unit-tests:
+    build:
+      dockerfile: rspec.dockerfile
+      context: .
+    environment:
+      SELENIUM_HOST: selenium
+      SELENIUM_PORT: 4444
+    volumes:
+      - $PWD:/app
+    entrypoint: rspec
+    command:
+      - --pattern
+      - /app/spec/unit/*_spec.rb
+  website:
+    image: nginx:alpine
+    volumes:
+      - $PWD/website:/website
+      - $PWD/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+  jenkins:
+    build:
+      context: ./jenkins
+      dockerfile: ./jenkins/Dockerfile
+    volumes:
+    - /tmp/jenkins_home:/var/jenkins_home
+    - $PWD:/app
+    ports:
+      - 8080:8080
+  readme:
+    build:
+      dockerfile: readme.Dockerfile
+      context: .
+    working_dir: /app
+    volumes:
+      - $PWD:/app
+    ports:
+      - 80:6419
+    command:
+      - grip
+      - "0.0.0.0:6419"
+  view-doc:
+    extends: readme
+    command:
+      - grip
+      - ${PATH_TO_CONTENT}
+      - "0.0.0.0:6419"
