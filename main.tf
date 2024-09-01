@@ -16,11 +16,6 @@ resource "aws_s3_bucket" "website" {
   force_destroy = true
 }
 
-# resource "aws_s3_bucket_policy" "bucket_policy" {
-#   bucket = aws_s3_bucket.website.id
-#   policy = data.aws_iam_policy_document.bucket_policy.json
-# }
-
 resource "aws_s3_bucket_policy" "bucket_policy" {
   depends_on = [aws_s3_bucket_public_access_block.example]
   bucket     = aws_s3_bucket.website.id
@@ -67,19 +62,6 @@ data "aws_iam_policy_document" "bucket_policy" {
   }
 }
 
-# data "aws_iam_policy_document" "bucket_policy" {
-#   statement {
-#     sid = "PublicReadGetObject"
-#     effect = "Allow"
-#     actions = [ "s3:GetObject" ]
-#     principals {
-#       type = "*"
-#       identifiers = [ "*" ]
-#     }
-#     resources = [ "arn:aws:s3:::$(var.domain_name)" ]
-#   }
-# }
-
 resource "aws_s3_bucket_public_access_block" "example" {
   bucket = aws_s3_bucket.website.id
 
@@ -92,10 +74,3 @@ resource "aws_s3_bucket_public_access_block" "example" {
 output "website_bucket_url" {
   value = aws_s3_bucket_website_configuration.website.website_endpoint
   }
-# docker-compose run --rm terraform output
-# website_bucket_url = "explorecalifornia.org.s3-website-us-east-1.amazonaws.com"
-# give us the output URL
-
-# iterative delete
-# for object in $(aws s3 ls s3://explorecalifornia.org/ --recursive | awk '{print $4}'); do
-#   aws s3 rm s3://explorecalifornia.org/$object
