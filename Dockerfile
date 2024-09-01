@@ -1,7 +1,7 @@
 FROM nginx:alpine
-MAINTAINER Carlos Nunez <dev@carlosnunez.me>
+LABEL MAINTAINER="Jonathan Nguyen jonathan@jdnguyen.tech"
 
-COPY website /website
+COPY website-ec /website
 COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80

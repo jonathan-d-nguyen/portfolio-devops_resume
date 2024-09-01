@@ -1,0 +1,20 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Nguyen;Jonathan;;;
+FN:Jonathan Nguyen
+ORG:Orange County, California
+ADR;TYPE=WORK:
+TITLE:Systems Engineer at Disney Parks
+TEL;TYPE=CELL:+17145802236
+TEL;TYPE=WORK:
+TEL;TYPE=HOME:
+TEL;TYPE=MSG:+17145802236
+EMAIL;TYPE=WORK:JonathanDanhNguyen@gmail.com
+URL;TYPE=Digital Business Card:https://pizzarazi.github.io/
+URL:
+URL;TYPE=GitHub:https://github.com/PizzaRazi
+URL;TYPE=LinkedIn:https://linkedin.com/in/JonathanDanhNguyen
+KEY;TYPE=PGP;ENCODING=b:
+NOTE:AWS, Front End Dev, Project Management, Security+US Navy veteran, TS/SCI
+UID:EnBizCard-100443777
+END:VCARD
