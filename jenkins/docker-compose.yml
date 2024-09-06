@@ -1,0 +1,8 @@
+# this is for a remote git repo
+services:
+  jenkins:
+    build:
+      context: .
+      dockerfile: jenkins.Dockerfile
+    ports:
+      - 8080:8080
