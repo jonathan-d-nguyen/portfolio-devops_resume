@@ -1,3 +1,0 @@
-workflow-aggregator # jenkins pipelines as code service
-seed 
-git
