@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Created-By: Maven Archiver 3.6.0
+Build-Jdk-Spec: 11
+Specification-Title: Jenkins description setter plugin
+Specification-Version: 0.0
+Implementation-Title: Jenkins description setter plugin
+Implementation-Version: 239.vd0a_6b_785f92d
+Group-Id: org.jenkins-ci.plugins
+Artifact-Id: description-setter
+Short-Name: description-setter
+Long-Name: Jenkins description setter plugin
+Url: https://github.com/jenkinsci/description-setter-plugin
+Plugin-Version: 239.vd0a_6b_785f92d
+Hudson-Version: 2.401.3
+Jenkins-Version: 2.401.3
+Plugin-Dependencies: matrix-project:822.v01b_8c85d16d2
+Plugin-Developers: Michael:michael1010:,Mark Waite:markewaite:
+Plugin-ScmConnection: scm:git:https://github.com/jenkinsci/description-s
+ etter-plugin.git
+Plugin-ScmTag: d0a6b785f92d4e0bb956c3949aa47c0035cbfad8
+Plugin-ScmUrl: https://github.com/jenkinsci/description-setter-plugin
+Plugin-GitHash: d0a6b785f92d4e0bb956c3949aa47c0035cbfad8
+Implementation-Build: d0a6b785f92d4e0bb956c3949aa47c0035cbfad8
+

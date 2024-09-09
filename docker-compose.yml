@@ -8,10 +8,10 @@ services:
       dockerfile: jenkins.Dockerfile
     volumes:
       - $PWD/jenkins_home:/var/jenkins_home
-      - $PWD:/app # if using git, wouldn't need this second volume line b/c project in git ;; just clone from git
+      - $PWD:/app # if using git, wouldn't need this second volume line b/c project in git ;;
+      # just clone from git
     ports:
       - 8080:8080
-    # entrypoint: bin/sh
   aws:
     image: amazon/aws-cli
     # entrypoint: bash

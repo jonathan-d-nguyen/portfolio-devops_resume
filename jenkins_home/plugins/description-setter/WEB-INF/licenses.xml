@@ -1,0 +1,2 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<l:dependencies xmlns:l='licenses' groupId='org.jenkins-ci.plugins' artifactId='description-setter' version='239.vd0a_6b_785f92d'><l:dependency name='Jenkins description setter plugin' groupId='org.jenkins-ci.plugins' artifactId='description-setter' version='239.vd0a_6b_785f92d' url='https://github.com/jenkinsci/description-setter-plugin'><l:description>The Jenkins Plugins Parent POM Project</l:description></l:dependency></l:dependencies>

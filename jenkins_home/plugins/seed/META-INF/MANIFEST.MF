@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Plugin-Dependencies: matrix-auth:1.4,cloudbees-folder:5.11,description
+ -setter:1.10,parameterized-trigger:2.26,envinject:1.93.1,job-dsl:1.50
+Jenkins-Version: 1.625.3
+Group-Id: org.jenkins-ci.plugins
+Plugin-Developers: Damien Coraboeuf:dcoraboeuf:damien.coraboeuf@gmail.
+ com
+Support-Dynamic-Loading: true
+Short-Name: seed
+Plugin-Version: 2.1.4
+Long-Name: Seed Jenkins plug-in
+Extension-Name: seed
+Url: http://wiki.jenkins-ci.org/display/JENKINS/Seed+Plugin
+

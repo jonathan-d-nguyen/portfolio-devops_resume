@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Created-By: Maven Archiver 3.5.2
+Build-Jdk-Spec: 11
+Specification-Title: EnvInject API Plugin
+Specification-Version: 0.0
+Implementation-Title: EnvInject API Plugin
+Implementation-Version: 1.199.v3ce31253ed13
+Group-Id: org.jenkins-ci.plugins
+Short-Name: envinject-api
+Long-Name: EnvInject API Plugin
+Url: https://github.com/jenkinsci/envinject-api-plugin
+Minimum-Java-Version: 1.8
+Plugin-Version: 1.199.v3ce31253ed13
+Hudson-Version: 2.332.1
+Jenkins-Version: 2.332.1
+Plugin-Developers: Oleg Nenashev:oleg_nenashev:,Alexander Brandes:NotMyF
+ ault:contact@notmyfault.dev
+Support-Dynamic-Loading: true
+Plugin-License-Name: MIT License
+Plugin-License-Url: https://opensource.org/licenses/MIT
+Plugin-ScmUrl: https://github.com/jenkinsci/envinject-api-plugin
+

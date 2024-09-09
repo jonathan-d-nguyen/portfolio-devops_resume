@@ -1,0 +1,33 @@
+Manifest-Version: 1.0
+Created-By: Maven Archiver 3.6.0
+Build-Jdk-Spec: 17
+Specification-Title: Pipeline
+Specification-Version: 0.0
+Implementation-Title: Pipeline
+Implementation-Version: 600.vb_57cdd26fdd7
+Group-Id: org.jenkins-ci.plugins.workflow
+Artifact-Id: workflow-aggregator
+Short-Name: workflow-aggregator
+Long-Name: Pipeline
+Url: https://github.com/jenkinsci/workflow-aggregator-plugin
+Plugin-Version: 600.vb_57cdd26fdd7
+Hudson-Version: 2.361.4
+Jenkins-Version: 2.361.4
+Plugin-Dependencies: pipeline-groovy-lib:656.va_a_ceeb_6ffb_f7,workflow-
+ basic-steps:1017.vb_45b_302f0cea_,workflow-cps:3659.v582dc37621d8,workf
+ low-durable-task-step:1246.v5524618ea_097,workflow-job:1295.v395eb_7400
+ 005,workflow-multibranch:746.v05814d19c001,pipeline-build-step:491.v1fe
+ c530da_858,pipeline-input-step:468.va_5db_051498a_4,pipeline-milestone-
+ step:111.v449306f708b_7,pipeline-stage-step:305.ve96d0205c1c6,pipeline-
+ model-definition:2.2131.vb_9788088fdb_5
+Plugin-Developers: 
+Support-Dynamic-Loading: true
+Plugin-License-Name: MIT License
+Plugin-License-Url: https://opensource.org/licenses/MIT
+Plugin-ScmConnection: scm:git:https://github.com/jenkinsci/workflow-aggr
+ egator-plugin.git
+Plugin-ScmTag: b57cdd26fdd7182dc117fe3d20f5c450ba313de9
+Plugin-ScmUrl: https://github.com/jenkinsci/workflow-aggregator-plugin
+Plugin-GitHash: b57cdd26fdd7182dc117fe3d20f5c450ba313de9
+Implementation-Build: b57cdd26fdd7182dc117fe3d20f5c450ba313de9
+

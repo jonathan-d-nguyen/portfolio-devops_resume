@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Created-By: Maven Archiver 3.6.0
+Build-Jdk-Spec: 11
+Specification-Title: Structs Plugin
+Specification-Version: 0.0
+Implementation-Title: Structs Plugin
+Implementation-Version: 338.v848422169819
+Group-Id: org.jenkins-ci.plugins
+Artifact-Id: structs
+Short-Name: structs
+Long-Name: Structs Plugin
+Url: https://github.com/jenkinsci/structs-plugin
+Plugin-Version: 338.v848422169819
+Hudson-Version: 2.414.3
+Jenkins-Version: 2.414.3
+Plugin-Developers: 
+Plugin-License-Name: MIT License
+Plugin-License-Url: https://opensource.org/licenses/MIT
+Plugin-ScmConnection: scm:git:https://github.com/jenkinsci/structs-plugi
+ n.git
+Plugin-ScmTag: 84842216981976d920b568726f8590a7b39a56a1
+Plugin-ScmUrl: https://github.com/jenkinsci/structs-plugin
+Plugin-GitHash: 84842216981976d920b568726f8590a7b39a56a1
+Implementation-Build: 84842216981976d920b568726f8590a7b39a56a1
+
