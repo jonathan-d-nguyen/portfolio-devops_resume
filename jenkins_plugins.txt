@@ -1,3 +1,74 @@
 workflow-aggregator # jenkins pipelines as code service
 seed 
 git
+
+# default 'getting started' plugins
+# https://github.com/jenkinsci/jenkins/blob/6ca9b5ee5f601f72fcd094f8d159272c6b504b2f/core/src/main/resources/jenkins/install/platform-plugins.json
+
+#organization and administration
+dashboard-view
+cloudbees-folder
+configuration-as-code
+antisamy-markup-formatter
+
+# build features
+build-name-setter
+build-timeout
+config-file-provider
+credentials-binding
+embeddable-build-status
+rebuild
+ssh-agent
+throttle-concurrents
+timestamper
+ws-cleanup
+
+#build tools
+ant
+gradle
+msbuild
+nodejs
+
+# build analysis and reporting
+cobertura
+htmlpublisher
+junit
+warnings-ng
+xunit
+
+#pipelines and continuous delivery
+workflow-aggregator
+github-branch-source
+pipeline-github-lib
+pipeline-stage-view
+conditional-buildstep
+parameterized-trigger
+copyartifact
+
+# source code management
+bitbucket
+clearcase
+cvs
+git
+git-parameter
+github
+gitlab-plugin
+p4
+repo
+subversion
+
+# distributed builds
+matrix-project
+ssh-slaves
+
+# user management and security
+matrix-auth
+pam-auth
+ldap
+role-strategy
+active-directory
+
+# notifications and publishing
+email-ext
+emailext-template
+mailer
