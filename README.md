@@ -47,32 +47,37 @@
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="#about-the-project">About The Project</a>
+      <a href="#1-about-the-project">About The Project</a>
       <ul>
-        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#11-built-with">Built With</a></li>
       </ul>
     </li>
     <li>
-      <a href="#getting-started">Getting Started</a>
+      <a href="#2-getting-started">Getting Started</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#21-prerequisites">Prerequisites</a></li>
+        <li><a href="#22-installation">Installation</a></li>
       </ul>
     </li>
     <li>
-      <a href="#usage">Usage</a>
+      <a href="#3-usage">Usage</a>
       <ul>
-        <li><a href="#docker-containers">Docker Containers</a></li>
-        <li><a href="#terraform-infrastructure">Terraform Infrastructure</a></li>
-        <li><a href="#running-tests">Running Tests</a></li>
-        <li><a href="#ci/cd-pipeline">CI/CD Pipeline</a></li>
-        <li><a href="#accessing-the-website">Accessing the Website</a></li>
+        <li><a href="#31-docker-containers">Docker Containers</a></li>
+        <li><a href="#32-terraform-infrastructure">Terraform Infrastructure</a></li>
+        <li><a href="#33-running-tests">Running Tests</a></li>
+        <li><a href="#34-cicd-pipeline">CI/CD Pipeline</a></li>
+        <li><a href="#35-accessing-the-website">Accessing the Website</a></li>
       </ul>
     </li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#4-roadmap">Roadmap</a></li>
+    <li>
+      <a href="#5-contributing">Contributing</a>
+      <ul>
+        <li><a href="#51-top-contributors">Top contributors</a></li>
+      </ul>
+    </li>
+    <li><a href="#6-license">License</a></li>
+    <li><a href="#7-contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
