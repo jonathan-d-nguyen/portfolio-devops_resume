@@ -1,0 +1,48 @@
+# environments/staging/main.tf
+terraform {
+  backend "s3" {
+    bucket         = "jdnguyen-terraform-state"
+    key            = "staging/terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "terraform-state-locks"
+    encrypt        = true
+  }
+}
+
+locals {
+  environment = "staging"
+  domain_name = "staging.jdnguyen.tech"
+}
+
+module "website" {
+  source = "../../modules/website"  # Path to your module
+
+  domain_name     = local.domain_name
+  environment     = local.environment
+  aws_s3_bucket_name = "staging-www.jdnguyen.tech"
+  logs_bucket_name   = "staging-jdn.tech.log"
+}
+
+# modules/website/variables.tf
+variable "domain_name" {
+  description = "The domain name for the website"
+  type        = string
+}
+
+variable "environment" {
+  description = "The deployment environment"
+  type        = string
+}
+
+variable "aws_s3_bucket_name" {
+  description = "Name of the S3 bucket for the website"
+  type        = string
+}
+
+variable "logs_bucket_name" {
+  description = "Name of the S3 bucket for logs"
+  type        = string
+}
+
+# modules/website/main.tf
+# Your existing main.tf code goes here, but using the variables
