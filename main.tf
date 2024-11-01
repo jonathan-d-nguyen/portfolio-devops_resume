@@ -1,3 +1,21 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+  
+  backend "s3" {
+    bucket         = "jdnguyen-terraform-state"
+    key            = "prod/terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "terraform-state-locks"
+    encrypt        = true
+  }
+}
+
+
 variable "domain_name"{
     description = "The name of the domain for our website."
     default = "www.jdnguyen.tech"
@@ -12,9 +30,17 @@ locals {
   # cert_arn = "arn:"
 }
 
+# main aws provider
 provider "aws" {
   region = "us-east-1" 
-
+  shared_config_files      = ["/home/tfuser/.aws/config"]
+  shared_credentials_files = ["/home/tfuser/.aws/credentials"]
+  profile                  = "default"
+}
+# additional provider for acm certificate; us-east-1 for CloudFront
+provider "aws" {
+  alias = "us-east-1"
+  region = "us-east-1" 
   shared_config_files      = ["/home/tfuser/.aws/config"]
   shared_credentials_files = ["/home/tfuser/.aws/credentials"]
   profile                  = "default"
@@ -30,6 +56,7 @@ resource "aws_s3_bucket" "website" {
 resource "aws_s3_bucket" "logs" {
   bucket = local.logs_bucket_name
   }
+
 
 # Create a CloudFront distribution
 resource "aws_cloudfront_distribution" "main" {
@@ -283,7 +310,7 @@ resource "aws_cloudfront_origin_access_control" "default" {
 
 resource "aws_acm_certificate" "cert" {
   provider = aws.us-east-1
-  domain_name       = local.domain_name
+  domain_name       = local.domain
   validation_method = "DNS"
 
   lifecycle {
