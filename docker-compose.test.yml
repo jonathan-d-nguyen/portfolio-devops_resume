@@ -3,8 +3,8 @@ name: resume-test
 services:
   terraform:
     build:
-      dockerfile: terraform.Dockerfile
       context: .
+      dockerfile: terraform.Dockerfile
     environment:
       AWS_REGION: "us-east-1"
       TF_WORKSPACE: "staging"
@@ -12,7 +12,7 @@ services:
     volumes:
       - .:/app
       - ${HOME}/.aws:/home/tfuser/.aws:ro
-    working_dir: /app/environments/staging
+    working_dir: /app/environment/staging
     user: tfuser
 
   integration-tests:

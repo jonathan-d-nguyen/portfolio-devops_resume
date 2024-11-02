@@ -23,4 +23,4 @@ RUN chown tfuser:tfgroup /app
 # Switch to non-root user
 USER tfuser
 
-ENTRYPOINT ["/usr/local/bin/terraform"]
+ENTRYPOINT []

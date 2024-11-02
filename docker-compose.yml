@@ -44,12 +44,13 @@ services:
     environment:
       AWS_REGION: "us-east-1"
     volumes:
-      - $PWD:/app
-      - /Users/jonathannguyen/.aws/credentials:/app/.aws/credentials
-      - /Users/jonathannguyen/.aws/config:/app/.aws/config
-      # - /Users/jonathannguyen/.aws/config|credentials:/app/.aws/config|credentials
-
-    working_dir: /app
+      # - $PWD:/app
+      # - /Users/jonathannguyen/.aws/credentials:/app/.aws/credentials
+      # - /Users/jonathannguyen/.aws/config:/app/.aws/config
+      - .:/app # Mount project root to /app
+      - $HOME/.aws/credentials:/home/tfuser/.aws/credentials:ro # AWS credentials
+      - $HOME/.aws/config:/home/tfuser/.aws/config:ro # AWS config
+    working_dir: /app # Where commands will be executed
   selenium:
     image: selenium/standalone-chrome
     platform: linux/x86_64

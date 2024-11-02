@@ -1,11 +1,11 @@
 {
   "version": 4,
   "terraform_version": "1.9.1",
-  "serial": 210,
+  "serial": 164,
   "lineage": "69e24ec4-4771-bd15-9f00-5a11b900dde8",
   "outputs": {
     "website_bucket_url": {
-      "value": "www.jdnguyen.tech.s3-website-us-east-1.amazonaws.com",
+      "value": "staging-jdnguyen.tech.s3-website-us-east-1.amazonaws.com",
       "type": "string"
     }
   },
@@ -19,8 +19,8 @@
         {
           "schema_version": 0,
           "attributes": {
-            "id": "42998264",
-            "json": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"\",\n      \"Effect\": \"Allow\",\n      \"Action\": \"s3:GetObject\",\n      \"Resource\": [\n        \"arn:aws:s3:::www.jdnguyen.tech/*\",\n        \"arn:aws:s3:::www.jdnguyen.tech\"\n      ],\n      \"Principal\": \"*\"\n    }\n  ]\n}",
+            "id": "681598157",
+            "json": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"\",\n      \"Effect\": \"Allow\",\n      \"Action\": \"s3:GetObject\",\n      \"Resource\": [\n        \"arn:aws:s3:::staging-jdnguyen.tech/*\",\n        \"arn:aws:s3:::staging-jdnguyen.tech\"\n      ],\n      \"Principal\": \"*\"\n    }\n  ]\n}",
             "override_json": null,
             "override_policy_documents": null,
             "policy_id": null,
@@ -45,8 +45,8 @@
                   }
                 ],
                 "resources": [
-                  "arn:aws:s3:::www.jdnguyen.tech",
-                  "arn:aws:s3:::www.jdnguyen.tech/*"
+                  "arn:aws:s3:::staging-jdnguyen.tech",
+                  "arn:aws:s3:::staging-jdnguyen.tech/*"
                 ],
                 "sid": ""
               }
@@ -67,21 +67,21 @@
         {
           "schema_version": 0,
           "attributes": {
-            "arn": "arn:aws:acm:us-east-1:533267407336:certificate/3115683e-2811-42d0-8922-34ca44e2a130",
+            "arn": "arn:aws:acm:us-east-1:533267407336:certificate/47cfd318-59c2-4b12-8334-3096a81ba347",
             "certificate_authority_arn": "",
             "certificate_body": null,
             "certificate_chain": null,
-            "domain_name": "www.jdnguyen.tech",
+            "domain_name": "staging.jdnguyen.tech",
             "domain_validation_options": [
               {
-                "domain_name": "www.jdnguyen.tech",
-                "resource_record_name": "_e4c32aabc96967343d7da6d5fcd0415b.www.jdnguyen.tech.",
+                "domain_name": "staging.jdnguyen.tech",
+                "resource_record_name": "_a7bd88093362b51ce7ecb30842a33c6f.staging.jdnguyen.tech.",
                 "resource_record_type": "CNAME",
-                "resource_record_value": "_4e12368ead7ea6643345572f7647dc97.djqtsrsxkq.acm-validations.aws."
+                "resource_record_value": "_02562cd9b35a75b93ca6e61eaefbff4d.djqtsrsxkq.acm-validations.aws."
               }
             ],
             "early_renewal_duration": "",
-            "id": "arn:aws:acm:us-east-1:533267407336:certificate/3115683e-2811-42d0-8922-34ca44e2a130",
+            "id": "arn:aws:acm:us-east-1:533267407336:certificate/47cfd318-59c2-4b12-8334-3096a81ba347",
             "key_algorithm": "RSA_2048",
             "not_after": "",
             "not_before": "",
@@ -96,7 +96,7 @@
             "renewal_summary": [],
             "status": "PENDING_VALIDATION",
             "subject_alternative_names": [
-              "www.jdnguyen.tech"
+              "staging.jdnguyen.tech"
             ],
             "tags": null,
             "tags_all": {
@@ -131,88 +131,16 @@
         {
           "schema_version": 0,
           "attributes": {
-            "description": "Origin Access Control for www.jdnguyen.tech",
+            "description": "Origin Access Control for staging",
             "etag": "ETVPDKIKX0DER",
-            "id": "E137DYAIETOETR",
-            "name": "production-www.jdnguyen.tech-oac",
+            "id": "E2XGRU9Z7PRJ09",
+            "name": "staging-oac",
             "origin_access_control_origin_type": "s3",
             "signing_behavior": "always",
             "signing_protocol": "sigv4"
           },
           "sensitive_attributes": [],
           "private": "bnVsbA=="
-        }
-      ]
-    },
-    {
-      "module": "module.website",
-      "mode": "managed",
-      "type": "aws_s3_bucket",
-      "name": "logs",
-      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
-      "instances": [
-        {
-          "schema_version": 0,
-          "attributes": {
-            "acceleration_status": "",
-            "acl": null,
-            "arn": "arn:aws:s3:::log.jdnguyen.tech",
-            "bucket": "log.jdnguyen.tech",
-            "bucket_domain_name": "log.jdnguyen.tech.s3.amazonaws.com",
-            "bucket_prefix": "",
-            "bucket_regional_domain_name": "log.jdnguyen.tech.s3.amazonaws.com",
-            "cors_rule": [],
-            "force_destroy": false,
-            "grant": [
-              {
-                "id": "25a0bd21451fed463d23cc14f54c9a19d87f851eeb7a0971f6992a8d75468377",
-                "permissions": [
-                  "FULL_CONTROL"
-                ],
-                "type": "CanonicalUser",
-                "uri": ""
-              }
-            ],
-            "hosted_zone_id": "Z3AQBSTGFYJSTF",
-            "id": "log.jdnguyen.tech",
-            "lifecycle_rule": [],
-            "logging": [],
-            "object_lock_configuration": [],
-            "object_lock_enabled": false,
-            "policy": "",
-            "region": "us-east-1",
-            "replication_configuration": [],
-            "request_payer": "BucketOwner",
-            "server_side_encryption_configuration": [
-              {
-                "rule": [
-                  {
-                    "apply_server_side_encryption_by_default": [
-                      {
-                        "kms_master_key_id": "",
-                        "sse_algorithm": "AES256"
-                      }
-                    ],
-                    "bucket_key_enabled": false
-                  }
-                ]
-              }
-            ],
-            "tags": null,
-            "tags_all": {},
-            "timeouts": null,
-            "versioning": [
-              {
-                "enabled": false,
-                "mfa_delete": false
-              }
-            ],
-            "website": [],
-            "website_domain": null,
-            "website_endpoint": null
-          },
-          "sensitive_attributes": [],
-          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjM2MDAwMDAwMDAwMDAsInJlYWQiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH19"
         }
       ]
     },
@@ -228,11 +156,11 @@
           "attributes": {
             "acceleration_status": "",
             "acl": null,
-            "arn": "arn:aws:s3:::www.jdnguyen.tech",
-            "bucket": "www.jdnguyen.tech",
-            "bucket_domain_name": "www.jdnguyen.tech.s3.amazonaws.com",
+            "arn": "arn:aws:s3:::staging-jdnguyen.tech",
+            "bucket": "staging-jdnguyen.tech",
+            "bucket_domain_name": "staging-jdnguyen.tech.s3.amazonaws.com",
             "bucket_prefix": "",
-            "bucket_regional_domain_name": "www.jdnguyen.tech.s3.amazonaws.com",
+            "bucket_regional_domain_name": "staging-jdnguyen.tech.s3.amazonaws.com",
             "cors_rule": [],
             "force_destroy": true,
             "grant": [
@@ -246,7 +174,7 @@
               }
             ],
             "hosted_zone_id": "Z3AQBSTGFYJSTF",
-            "id": "www.jdnguyen.tech",
+            "id": "staging-jdnguyen.tech",
             "lifecycle_rule": [],
             "logging": [],
             "object_lock_configuration": [],
@@ -285,54 +213,6 @@
           },
           "sensitive_attributes": [],
           "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjM2MDAwMDAwMDAwMDAsInJlYWQiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH19"
-        }
-      ]
-    },
-    {
-      "module": "module.website",
-      "mode": "managed",
-      "type": "aws_s3_bucket_acl",
-      "name": "logs",
-      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
-      "instances": [
-        {
-          "schema_version": 0,
-          "attributes": {
-            "access_control_policy": [
-              {
-                "grant": [
-                  {
-                    "grantee": [
-                      {
-                        "display_name": "jdtrinh+portfolio",
-                        "email_address": "",
-                        "id": "25a0bd21451fed463d23cc14f54c9a19d87f851eeb7a0971f6992a8d75468377",
-                        "type": "CanonicalUser",
-                        "uri": ""
-                      }
-                    ],
-                    "permission": "FULL_CONTROL"
-                  }
-                ],
-                "owner": [
-                  {
-                    "display_name": "jdtrinh+portfolio",
-                    "id": "25a0bd21451fed463d23cc14f54c9a19d87f851eeb7a0971f6992a8d75468377"
-                  }
-                ]
-              }
-            ],
-            "acl": "private",
-            "bucket": "log.jdnguyen.tech",
-            "expected_bucket_owner": "",
-            "id": "log.jdnguyen.tech,private"
-          },
-          "sensitive_attributes": [],
-          "private": "bnVsbA==",
-          "dependencies": [
-            "module.website.aws_s3_bucket.logs",
-            "module.website.aws_s3_bucket_ownership_controls.logs"
-          ]
         }
       ]
     },
@@ -371,9 +251,9 @@
               }
             ],
             "acl": "private",
-            "bucket": "www.jdnguyen.tech",
+            "bucket": "staging-jdnguyen.tech",
             "expected_bucket_owner": "",
-            "id": "www.jdnguyen.tech,private"
+            "id": "staging-jdnguyen.tech,private"
           },
           "sensitive_attributes": [],
           "private": "bnVsbA==",
@@ -388,40 +268,14 @@
       "module": "module.website",
       "mode": "managed",
       "type": "aws_s3_bucket_ownership_controls",
-      "name": "logs",
-      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
-      "instances": [
-        {
-          "schema_version": 0,
-          "attributes": {
-            "bucket": "log.jdnguyen.tech",
-            "id": "log.jdnguyen.tech",
-            "rule": [
-              {
-                "object_ownership": "BucketOwnerPreferred"
-              }
-            ]
-          },
-          "sensitive_attributes": [],
-          "private": "bnVsbA==",
-          "dependencies": [
-            "module.website.aws_s3_bucket.logs"
-          ]
-        }
-      ]
-    },
-    {
-      "module": "module.website",
-      "mode": "managed",
-      "type": "aws_s3_bucket_ownership_controls",
       "name": "website",
       "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
       "instances": [
         {
           "schema_version": 0,
           "attributes": {
-            "bucket": "www.jdnguyen.tech",
-            "id": "www.jdnguyen.tech",
+            "bucket": "staging-jdnguyen.tech",
+            "id": "staging-jdnguyen.tech",
             "rule": [
               {
                 "object_ownership": "BucketOwnerPreferred"
@@ -439,28 +293,6 @@
     {
       "module": "module.website",
       "mode": "managed",
-      "type": "aws_s3_bucket_policy",
-      "name": "logs",
-      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
-      "instances": [
-        {
-          "schema_version": 0,
-          "attributes": {
-            "bucket": "log.jdnguyen.tech",
-            "id": "log.jdnguyen.tech",
-            "policy": "{\"Statement\":[{\"Action\":[\"s3:PutObject\"],\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"delivery.logs.amazonaws.com\"},\"Resource\":[\"arn:aws:s3:::log.jdnguyen.tech/*\"],\"Sid\":\"AllowCloudFrontLogDelivery\"}],\"Version\":\"2012-10-17\"}"
-          },
-          "sensitive_attributes": [],
-          "private": "bnVsbA==",
-          "dependencies": [
-            "module.website.aws_s3_bucket.logs"
-          ]
-        }
-      ]
-    },
-    {
-      "module": "module.website",
-      "mode": "managed",
       "type": "aws_s3_bucket_public_access_block",
       "name": "website",
       "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
@@ -470,8 +302,8 @@
           "attributes": {
             "block_public_acls": true,
             "block_public_policy": true,
-            "bucket": "www.jdnguyen.tech",
-            "id": "www.jdnguyen.tech",
+            "bucket": "staging-jdnguyen.tech",
+            "id": "staging-jdnguyen.tech",
             "ignore_public_acls": true,
             "restrict_public_buckets": true
           },
@@ -493,9 +325,9 @@
         {
           "schema_version": 0,
           "attributes": {
-            "bucket": "www.jdnguyen.tech",
+            "bucket": "staging-jdnguyen.tech",
             "expected_bucket_owner": "",
-            "id": "www.jdnguyen.tech",
+            "id": "staging-jdnguyen.tech",
             "rule": [
               {
                 "apply_server_side_encryption_by_default": [
@@ -526,9 +358,9 @@
         {
           "schema_version": 0,
           "attributes": {
-            "bucket": "www.jdnguyen.tech",
+            "bucket": "staging-jdnguyen.tech",
             "expected_bucket_owner": "",
-            "id": "www.jdnguyen.tech",
+            "id": "staging-jdnguyen.tech",
             "mfa": null,
             "versioning_configuration": [
               {
@@ -555,10 +387,10 @@
         {
           "schema_version": 0,
           "attributes": {
-            "bucket": "www.jdnguyen.tech",
+            "bucket": "staging-jdnguyen.tech",
             "error_document": [],
             "expected_bucket_owner": "",
-            "id": "www.jdnguyen.tech",
+            "id": "staging-jdnguyen.tech",
             "index_document": [
               {
                 "suffix": "index.html"
@@ -568,7 +400,7 @@
             "routing_rule": [],
             "routing_rules": "",
             "website_domain": "s3-website-us-east-1.amazonaws.com",
-            "website_endpoint": "www.jdnguyen.tech.s3-website-us-east-1.amazonaws.com"
+            "website_endpoint": "staging-jdnguyen.tech.s3-website-us-east-1.amazonaws.com"
           },
           "sensitive_attributes": [],
           "private": "bnVsbA==",
