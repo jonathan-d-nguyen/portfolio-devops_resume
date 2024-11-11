@@ -1,76 +1,48 @@
-variable "domain_name"{
-    description = "The name of the domain for our website."
-    default = "www.jdnguyen.tech"
-}
-
 provider "aws" {
   region = "us-east-1" 
-
-  shared_config_files      = ["/app/.aws/config"]
-  shared_credentials_files = ["/app/.aws/credentials"]
+  shared_config_files      = ["/home/tfuser/.aws/config"]
+  shared_credentials_files = ["/home/tfuser/.aws/credentials"]
   profile                  = "default"
 }
 
-resource "aws_s3_bucket" "website" {
-  bucket = var.domain_name
-  force_destroy = true
-}
+module "website" {
+  source = "./modules/website"
 
-resource "aws_s3_bucket_policy" "bucket_policy" {
-  depends_on = [aws_s3_bucket_public_access_block.example]
-  bucket     = aws_s3_bucket.website.id
-  policy = jsonencode(
-    {
-      "Version" : "2012-10-17",
-      "Statement" : [
-        {
-          "Sid" : "PublicReadGetObject",
-          "Effect" : "Allow",
-          "Principal" : "*",
-          "Action" : "s3:GetObject",
-          "Resource" : "arn:aws:s3:::${aws_s3_bucket.website.id}/*"
-        }
-      ]
-    }
-  )
-}
+  domain_name            = var.domain_name
+  environment           = var.environment
+  aws_s3_bucket_name    = var.aws_s3_bucket_name
+  logs_bucket_name      = var.logs_bucket_name
+  enable_custom_domain  = var.enable_custom_domain
+  acm_certificate_arn   = var.acm_certificate_arn
+  cloudfront_price_class = var.cloudfront_price_class
+  allowed_countries     = var.allowed_countries
 
-resource "aws_s3_bucket_website_configuration" "website" {
-  bucket = aws_s3_bucket.website.id
-
-  index_document {
-    suffix = "index.html"
+  providers = {
+    aws = aws
   }
 }
 
+
+# Update the policy document to use module outputs
 data "aws_iam_policy_document" "bucket_policy" {
   statement {
+    actions = ["s3:GetObject"]
+    resources = [
+      module.website.bucket_arn,
+      "${module.website.bucket_arn}/*",
+    ]
     principals {
       type        = "*"
       identifiers = ["*"]
     }
-
-    actions = [
-      "s3:GetObject",
-      "s3:ListBucket",
-    ]
-
-    resources = [
-      aws_s3_bucket.website.arn,
-      "${aws_s3_bucket.website.arn}/*",
-    ]
   }
 }
 
-resource "aws_s3_bucket_public_access_block" "example" {
-  bucket = aws_s3_bucket.website.id
-
-  block_public_acls       = false
-  block_public_policy     = false
-  ignore_public_acls      = false
-  restrict_public_buckets = false
-}
 
 output "website_bucket_url" {
-  value = aws_s3_bucket_website_configuration.website.website_endpoint
+  value = module.website.website_bucket_url
   }
+
+output "cloudfront_distribution_id" {
+  value = module.website.cloudfront_distribution_id
+}
