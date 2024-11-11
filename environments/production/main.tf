@@ -29,7 +29,17 @@ module "website" {
   logs_bucket_name   = "log.jdnguyen.tech"
   
   enable_custom_domain    = true
-  acm_certificate_arn    = "arn:aws:acm:us-east-1:533267407336:certificate/c4dc3b71-4371-461c-a28c-1712afcb4c98"
-  cloudfront_price_class = "PriceClass_100"
-  allowed_countries      = ["US"]
+  acm_certificate_arn     = "arn:aws:acm:us-east-1:533267407336:certificate/dcf1949e-7b8c-460e-b15e-7bb3cc136e96"
+  cloudfront_price_class  = "PriceClass_100"
+  allowed_countries       = ["US"]
+}
+
+output "cloudfront_distribution_id" {
+  value = module.website.cloudfront_distribution_id
+  description = "The CloudFront distribution ID"
+}
+
+output "cloudfront_domain_name" {
+  value = module.website.cloudfront_domain_name
+  description = "The CloudFront distribution domain name"
 }

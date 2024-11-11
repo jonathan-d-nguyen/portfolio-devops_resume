@@ -58,3 +58,8 @@ providers = {
   cloudfront_price_class = "PriceClass_100"
   allowed_countries      = ["US"]
 }
+
+output "cloudfront_distribution_id" {
+  value = module.website.cloudfront_distribution_id
+  description = "The CloudFront distribution ID"
+}

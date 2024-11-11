@@ -25,3 +25,8 @@ else
     echo "Tests failed! Staging environment left up for inspection."
     exit 1
 fi
+
+# After terraform apply succeeds, deploy the website
+aws s3 sync build/ s3://staging.jdnguyen.tech
+
+# Continue with your existing test script...
