@@ -8,8 +8,7 @@ services:
       dockerfile: jenkins.Dockerfile
     volumes:
       - $PWD/jenkins_home:/var/jenkins_home
-      - $PWD:/app # if using git, wouldn't need this second volume line b/c project in git ;;
-      # just clone from git
+      - $PWD:/app
     ports:
       - 8080:8080
   aws:
@@ -31,10 +30,7 @@ services:
     # docker-compose run --rm aws s3 cp --recursive /app/website s3://www.jdnguyen.tech
     # without entrypoint:
     # docker-compose run --rm --entrypoint aws aws s3 cp --recursive /app/website s3://jdnguyen.tech
-    # aws s3 cp --recursive /app/website/ s3://explorecalifornia.org/
 
-    # /app/website breakdown: in this command, you are copying from the aws container to the s3 bucket ;; path is relative to container:
-    # working directory of
   terraform:
     # entrypoint: /bin/sh
     build:
@@ -44,12 +40,10 @@ services:
     environment:
       AWS_REGION: "us-east-1"
     volumes:
-      - $PWD:/app
-      - /Users/jonathannguyen/.aws/credentials:/app/.aws/credentials
-      - /Users/jonathannguyen/.aws/config:/app/.aws/config
-      # - /Users/jonathannguyen/.aws/config|credentials:/app/.aws/config|credentials
-
-    working_dir: /app
+      - .:/app # Mount project root to /app
+      - $HOME/.aws/credentials:/home/tfuser/.aws/credentials:ro # AWS credentials
+      - $HOME/.aws/config:/home/tfuser/.aws/config:ro # AWS config
+    working_dir: /app # Where commands will be executed
   selenium:
     image: selenium/standalone-chrome
     platform: linux/x86_64
