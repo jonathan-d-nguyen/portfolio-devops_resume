@@ -1,7 +1,5 @@
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 
-<a id="readme-top"></a>
-
 <!--
 *** Thanks for checking out the Best-README-Template. If you have a suggestion
 *** that would make this better, please fork the repo and create a pull request
@@ -33,7 +31,7 @@
 <h3 align="center">DevOps Portfolio: Digital Resume</h3>
 
   <p align="center">
-    My Infrastructure-as-Code that deploys a static S3 website.
+    A Infrastructure-as-Code project that deploys a static S3 website with CloudFront distribution.
     <br />
     <a href="https://github.com/jonathan-d-nguyen/portfolio-devops_resume"><strong>Explore the docs »</strong></a>
     <br />
@@ -53,42 +51,44 @@
       </ul>
     </li>
     <li>
-      <a href="#2-getting-started">Getting Started</a>
+      <a href="#2-quick-start">Quick Start</a>
       <ul>
         <li><a href="#21-prerequisites">Prerequisites</a></li>
-        <li><a href="#22-installation">Installation</a></li>
+        <li><a href="#22-basic-setup">Basic Setup</a></li>
       </ul>
     </li>
     <li>
-      <a href="#3-usage">Usage</a>
+      <a href="#3-deployment--operations">Deployment & Operations</a>
       <ul>
-        <li><a href="#31-docker-containers">Docker Containers</a></li>
-        <li><a href="#32-terraform-infrastructure">Terraform Infrastructure</a></li>
-        <li><a href="#33-running-tests">Running Tests</a></li>
+        <li><a href="#31-full-installation-steps">Full Installation Steps</a></li>
+        <li><a href="#32-testing--verification">Testing & Verification</a></li>
+        <li><a href="#33-troubleshooting">Troubleshooting</a></li>
         <li><a href="#34-cicd-pipeline">CI/CD Pipeline</a></li>
-        <li><a href="#35-accessing-the-website">Accessing the Website</a></li>
+        <li><a href="#35-cleanup">Cleanup</a></li>
       </ul>
     </li>
     <li><a href="#4-roadmap">Roadmap</a></li>
     <li>
       <a href="#5-contributing">Contributing</a>
       <ul>
-        <li><a href="#51-top-contributors">Top contributors</a></li>
+        <li><a href="#51-top-contributors">Top Contributors</a></li>
       </ul>
     </li>
     <li><a href="#6-license">License</a></li>
     <li><a href="#7-contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <li><a href="#8-acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
+
+<!-- Back to top link template for use throughout document -->
+
+<a id="readme-top"></a>
 
 <!-- ABOUT THE PROJECT -->
 
 ## 1. About The Project
 
-This repository demonstrates my skills in containerization, testing, infrastructure as code, and CI/CD. It includes Dockerfiles, Docker Compose, RSpec, Capybara, Selenium, Terraform, Jenkins, and a CI/CD pipeline.
-
-The website is my virtual business card/resume: <a href="http://www.jdnguyen.tech">www.jdnguyen.tech</a>
+This repository demonstrates DevOps practices including containerization, testing, infrastructure as code, and CI/CD. It deploys a static website to AWS using S3 and CloudFront, serving as my virtual business card/resume at [www.jdnguyen.tech](http://www.jdnguyen.tech).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -115,114 +115,232 @@ The website is my virtual business card/resume: <a href="http://www.jdnguyen.tec
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- GETTING STARTED -->
+<!-- QUICK START -->
 
-## 2. Getting Started
+## 2. Quick Start
 
-Following this will allow you to self-host a container that will This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+Get up and running quickly with these basic steps. For detailed instructions, see [Full Installation Steps](#31-full-installation-steps).
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### 2.1. Prerequisites
 
-1. AWS CLI - https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+1. **AWS CLI**
 
-2. Install Docker - https://docs.docker.com/engine/install/
-3. Edit the docker-compose.yml by updating the AWS and Terraform Volume mounts to your own AWS credentials
+   ```sh
+   # Install AWS CLI
+   curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+   unzip awscliv2.zip
+   sudo ./aws/install
 
-```
-aws:
-    volumes:
-      - $PWD:/app
-      - /Users/jonathannguyen/.aws/credentials:/root/.aws/credentials
-      - /Users/jonathannguyen/.aws/:/root/.aws/
+   # Configure AWS credentials
+   aws configure
+   ```
 
-[...]
+2. **Docker**
 
-  terraform:
-    # entrypoint: /bin/sh
-    build:
-      dockerfile: terraform.Dockerfile
-      context: .
-      # making this available in docker compose as a service
-    environment:
-      AWS_REGION: "us-east-1"
-    volumes:
-      - $PWD:/app
-      - /Users/jonathannguyen/.aws/credentials:/app/.aws/credentials
-      - /Users/jonathannguyen/.aws/config:/app/.aws/config
-```
+   ```sh
+   # Install Docker (Ubuntu example)
+   curl -fsSL https://get.docker.com -o get-docker.sh
+   sudo sh get-docker.sh
 
-### 2.2. Installation
+   # Start Docker service
+   sudo systemctl start docker
+   sudo systemctl enable docker
+   ```
 
-1. Clone repository.
+3. **Required AWS Permissions**
+   - S3 full access
+   - CloudFront full access
+   - Route 53 domains full access
+   - ACM certificate manager full access
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### 2.2. Basic Setup
+
+1. **Clone and prepare**
+
    ```sh
    git clone https://github.com/jonathan-d-nguyen/portfolio-devops_resume.git
+   cd portfolio-devops_resume
    ```
-2. In Terminal, navigate to repo folder. Initialize Terraform:
+
+2. **Deploy infrastructure**
 
    ```sh
    docker-compose run --rm terraform init
-   docker-compose run --rm terraform plan
    docker-compose run --rm terraform apply
+   ```
+
+3. **Deploy website**
+   ```sh
+   docker-compose run --rm --entrypoint aws aws s3 cp --recursive /app/website_files s3://your-domain.com
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- USAGE EXAMPLES -->
+<!-- DEPLOYMENT & OPERATIONS -->
 
-## 3. Usage
+## 3. Deployment & Operations
 
-This project demonstrates various DevOps practices and tools. Here's how you can use and explore different components:
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### 3.1. Docker Containers
+### 3.1. Full Installation Steps
 
-1. Build and run the Docker containers:
+1. **Repository Setup**
+
    ```sh
-   docker-compose up --build
+   git clone https://github.com/jonathan-d-nguyen/portfolio-devops_resume.git
+   cd portfolio-devops_resume
    ```
 
-### 3.2. Terraform Infrastructure
+2. **Infrastructure Deployment**
 
-1. Initialize Terraform:
+   ```sh
+   # Initialize Terraform
+   docker-compose run --rm terraform init
 
-```sh
-docker-compose run --rm terraform init
-```
+   # Preview changes
+   docker-compose run --rm terraform plan
 
-2. Plan your infrastructure changes:
+   # Apply infrastructure
+   docker-compose run --rm terraform apply
+   ```
 
-```sh
-docker-compose run --rm terraform plan
-```
+   Save the outputs:
 
-3. Apply the infrastructure:
+   ```sh
+   cloudfront_distribution_id = "XXXXXXXXXXXX"
+   website_bucket_url = "your-domain.com.s3..."
+   ```
 
-```sh
-docker-compose run --rm terraform apply
-```
+3. **Website Deployment**
 
-### 3.3. Running Tests
+   ```sh
+   docker-compose run --rm --entrypoint aws aws s3 cp --recursive /app/website_files s3://your-domain.com
+   ```
 
-Execute the test suite using:
+4. **Domain Configuration**
 
-```sh
-docker-compose run --rm test
-```
+   1. **Certificate Setup (ACM)**
+
+      - Navigate to ACM in us-east-1 region
+      - Request public certificate for your domain
+      - Add domain names:
+        ```
+        your-domain.com
+        *.your-domain.com
+        ```
+      - Choose DNS validation
+      - Create validation records in Route 53
+
+   2. **DNS Setup (Route 53)**
+
+      - Create/select hosted zone
+      - Update nameserver records at your registrar
+      - Create records:
+        ```
+        A record: your-domain.com → CloudFront distribution
+        CNAME record: www.your-domain.com → your-domain.com
+        ```
+
+   3. **CloudFront Setup**
+      - Configure alternate domain names
+      - Select ACM certificate
+      - Set default root object: index.html
+      - Configure price class
+      - Set up custom error responses if needed
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### 3.2. Testing & Verification
+
+1. **Infrastructure Tests**
+
+   ```sh
+   # Run test suite
+   docker-compose run --rm test
+
+   # Verify S3 bucket
+   aws s3 ls s3://your-domain.com
+
+   # Check CloudFront status
+   aws cloudfront get-distribution --id YOUR_DISTRIBUTION_ID
+   ```
+
+2. **Website Verification**
+   - Visit https://your-domain.com
+   - Test www and non-www domains
+   - Verify all pages load
+   - Check SSL certificate validity
+   - Confirm CDN caching
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### 3.3. Troubleshooting
+
+1. **Certificate Issues**
+
+   ```sh
+   # Check certificate status
+   aws acm describe-certificate --certificate-arn arn:aws:acm:region:account:certificate/certificate-id
+
+   # Verify DNS validation
+   dig _acme-challenge.your-domain.com
+   ```
+
+2. **CloudFront Problems**
+
+   ```sh
+   # Invalidate cache
+   aws cloudfront create-invalidation --distribution-id YOUR_DISTRIBUTION_ID --paths "/*"
+
+   # Check distribution status
+   aws cloudfront get-distribution --id YOUR_DISTRIBUTION_ID
+   ```
+
+3. **S3 Access Issues**
+   - Verify bucket policy
+   - Check CloudFront OAI settings
+   - Confirm bucket name matches domain
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### 3.4. CI/CD Pipeline
 
-The Jenkins pipeline is configured in the Jenkinsfile. To use it:
+The included Jenkins pipeline automates deployment:
 
-Ensure Jenkins is set up and running
+1. **Pipeline Setup**
 
-Create a new pipeline job in Jenkins
+   - Install required Jenkins plugins
+   - Create new pipeline job
+   - Configure GitHub webhook
+   - Point to Jenkinsfile
 
-Point the job to your repository
+2. **Pipeline Stages**
+   - Build
+   - Test
+   - Deploy infrastructure
+   - Deploy website
+   - Verification
 
-Jenkins will automatically detect the Jenkinsfile and run the defined stages
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-Accessing the Website
-The static website is hosted on AWS S3 and can be accessed at: www.jdnguyen.tech
+### 3.5. Cleanup
+
+```sh
+# Remove infrastructure
+docker-compose run --rm terraform destroy
+
+# Clean Docker resources
+docker-compose down -v
+docker system prune -f
+
+# Remove local files
+rm -rf .terraform
+rm -rf terraform.tfstate*
+```
 
 <!-- _For more examples, please refer to the [Documentation](https://www.jdnguyen.net)_ -->
 
@@ -234,14 +352,14 @@ The static website is hosted on AWS S3 and can be accessed at: www.jdnguyen.tech
 
 - [ ] Jenkins Deploy
   - Implement automated deployment using Jenkins CI/CD pipeline
-- [ ] CloudFront Integration
-  - [ ] Set up CloudFront distribution for content delivery
-  - [ ] Configure Origin Access Control for enhanced security
-  - [ ] Implement public access blocking for S3 origin
-  - [ ] Integrate AWS Certificate Manager for HTTPS
-  - [ ] Configure Route 53 for domain management
 - [ ] Terraform State Management
   - Implement state persistence in S3 for better collaboration and versioning
+- [x] CloudFront Integration
+  - [x] Set up CloudFront distribution for content delivery
+  - [x] Configure Origin Access Control for enhanced security
+  - [x] Implement public access blocking for S3 origin
+  - [x] Integrate AWS Certificate Manager for HTTPS
+  - [x] Configure Route 53 for domain management
 
 See the [open issues](https://github.com/jonathan-d-nguyen/portfolio-devops_resume/issues) for a full list of proposed features (and known issues).
 
@@ -270,6 +388,8 @@ Don't forget to give the project a star! Thanks again!
   <img src="https://contrib.rocks/image?repo=jonathan-d-nguyen/portfolio-devops_resume" alt="contrib.rocks image" />
 </a>
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 <!-- LICENSE -->
 
 ## 6. License
@@ -284,13 +404,13 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Jonathan Nguyen - jonathan@jdnguyen.tech
 
-Project Link: [https://github.com/jonathan-d-nguyen/portfolio-devops_resume](https://github.com/jonathan-d-nguyen/repo_name)
+Project Link: [https://github.com/jonathan-d-nguyen/portfolio-devops_resume](https://github.com/jonathan-d-nguyen/portfolio-devops_resume)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ACKNOWLEDGMENTS -->
 
-## Acknowledgments
+## 8. Acknowledgments
 
 - [Awesome README Template](https://github.com/othneildrew/Best-README-Template/)
 
