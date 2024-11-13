@@ -287,7 +287,7 @@ Get up and running quickly with these basic steps. For detailed instructions, se
    aws acm describe-certificate --certificate-arn arn:aws:acm:region:account:certificate/certificate-id
 
    # Verify DNS validation
-   dig _acme-challenge.your-domain.com
+   dig www.your-domain.com
    ```
 
 2. **CloudFront Problems**
@@ -302,7 +302,7 @@ Get up and running quickly with these basic steps. For detailed instructions, se
 
 3. **S3 Access Issues**
    - Verify bucket policy
-   - Check CloudFront OAI settings
+   - Check CloudFront OAC settings
    - Confirm bucket name matches domain
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
