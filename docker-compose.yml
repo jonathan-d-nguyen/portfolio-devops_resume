@@ -40,7 +40,6 @@ services:
     environment:
       AWS_REGION: "us-east-1"
     volumes:
-    volumes:
       - .:/app # Mount project root to /app
       - $HOME/.aws/credentials:/home/tfuser/.aws/credentials:ro # AWS credentials
       - $HOME/.aws/config:/home/tfuser/.aws/config:ro # AWS config
