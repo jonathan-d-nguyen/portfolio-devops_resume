@@ -50,10 +50,13 @@ resource "aws_cloudfront_distribution" "main" {
     domain_name              = aws_s3_bucket.website.bucket_domain_name
     origin_id                = local.s3_origin_id
     origin_access_control_id = aws_cloudfront_origin_access_control.default.id
+    
   }
 
   enabled             = true
-  aliases             = var.enable_custom_domain ? [var.domain_name] : []
+  # aliases             = var.enable_custom_domain ? [var.domain_name] : []
+  aliases = []  # Remove aliases temporarily
+
   default_root_object = "index.html"
   is_ipv6_enabled     = true
   wait_for_deployment = true
