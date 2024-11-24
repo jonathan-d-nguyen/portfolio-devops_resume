@@ -90,6 +90,10 @@
 
 This repository demonstrates DevOps practices including containerization, testing, infrastructure as code, and CI/CD. It deploys a static website to AWS using S3 and CloudFront, serving as my virtual business card/resume at [www.jdnguyen.tech](http://www.jdnguyen.tech).
 
+Are you looking over projects for the Learn To Cloud internship? Please also check out my Python-based project at [https://github.com/jonathan-d-nguyen/payment-notification-aggregator](https://github.com/jonathan-d-nguyen/payment-notification-aggregator)
+
+Thanks!
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### 1.1. Built With
