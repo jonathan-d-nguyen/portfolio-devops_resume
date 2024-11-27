@@ -1,0 +1,27 @@
+# .terraform-docs.yml
+# .terraform-docs.yml
+# Configuration for automated documentation generation
+# This ensures consistent and up-to-date documentation
+
+formatter: "markdown table"
+
+sections:
+  show:
+    - requirements
+    - providers
+    - modules
+    - resources
+    - inputs
+    - outputs
+
+output:
+  file: "README.md"
+  mode: inject
+  template: |-
+    <!-- BEGIN_TF_DOCS -->
+    {{ .Content }}
+    <!-- END_TF_DOCS -->
+
+sort:
+  enabled: true
+  by: required
