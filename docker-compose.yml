@@ -38,7 +38,8 @@ services:
       context: .
       # making this available in docker compose as a service
     environment:
-      AWS_REGION: "us-east-1"
+      - AWS_PROFILE=${AWS_PROFILE:-default}
+      - AWS_REGION=${AWS_REGION:-us-east-1}
     volumes:
       - .:/app # Mount project root to /app
       - $HOME/.aws/credentials:/home/tfuser/.aws/credentials:ro # AWS credentials
