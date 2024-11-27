@@ -50,6 +50,7 @@ build/
 tmp/
 temp/
 *.tmp
+sandbox/
 
 # System Files
 .DS_Store
