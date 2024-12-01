@@ -10,9 +10,6 @@ terraform {
 
 
 locals {
-  aws_s3_bucket_name = "www.jdnguyen.tech"
-  domain = "www.jdnguyen.tech"
-  logs_bucket_name   = "jdn.tech.log" 
   s3_origin_id = "myS3Origin"
   # hosted_zone_id = "(r53)"
   # cert_arn = "arn:"
@@ -35,13 +32,14 @@ provider "aws" {
 
 # S3 bucket for website
 resource "aws_s3_bucket" "website" {
-  bucket        = var.aws_s3_bucket_name
+  # bucket        = var.aws_s3_bucket_name
+  bucket        = local.website_bucket_name
   force_destroy = true
 }
 
 # logging bucket
 resource "aws_s3_bucket" "logs" {
-  bucket = var.logs_bucket_name
+  bucket = local.logs_bucket_name
   }
 
 # Create CloudFront distribution

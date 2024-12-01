@@ -1,61 +1,114 @@
-# Terraform files
+# .gitignore global configuration
+# Path: ~/.gitignore_global
+
+# Application Specific
+## Obsidian
+.obsidian/workspace
+.obsidian/metadata
+.obsidian/cache
+
+## Terraform
+.terraform/
 **/.terraform/*
 *.tfstate
 *.tfstate.*
 *.tfvars
 *.tfvars.json
-crash.log
-crash.*.log
 override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
 .terraformrc
 terraform.rc
-
-# Local .terraform directories
+*tfplan
 .terraform/
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
+!example.tfvars
+tfplan
+**/*tfplan*
+.terraformrc
+terraform.rc
 
-# Local development environment
+# Don't ignore .terraform.lock.hcl files
+!*.terraform.lock.hcl
+
+## Jenkins
+jenkins_home/
+**/jenkins_home/*
+
+# Development Environments
+## Virtual Environments
+env/
 .env
 .envrc
-*.pem
-*.key
-*.crt
 
-# IDE and editor files
-.idea/
-.vscode/
-*.swp
-*.swo
-*~
-.DS_Store
-
-# Logs
-*.log
-logs/
-log/
-
-# Dependencies
+## Dependencies
 node_modules/
 vendor/
 
-# Build outputs
+# Editor and IDE Files
+## Visual Studio Code
+.vscode/
+**/.vscode/*
+
+## Vim
+*.swp
+*.swo
+*~
+
+## JetBrains
+.idea/
+
+# Operating System Files
+## macOS
+.DS_Store
+._.DS_Store
+**/.DS_Store
+**/._.DS_Store
+.DS_Store
+**/.DS_Store
+._.DS_Store
+**/._.DS_Store
+Thumbs.db
+
+## Windows
+Thumbs.db
+**/Thumbs.db
+
+# Build and Compilation
+## Output Directories
 dist/
 build/
+
+## Archives
 *.zip
 *.tar.gz
 
-# Temporary files
+## Temporary Files
 tmp/
 temp/
 *.tmp
 sandbox/
 
-# System Files
-.DS_Store
-Thumbs.db
+# Logs and Debugging
+## Log Files
+*.log
+log/
+logs/
+crash.log
+crash.*.log
 
-# AWS specific
+# Security and Credentials
+## Certificates and Keys
+*.pem
+*.key
+*.crt
+
+## Secrets
+secrets/
 .aws/
+**/.aws/*
 aws.json

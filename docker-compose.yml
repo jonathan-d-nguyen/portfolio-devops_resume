@@ -11,6 +11,17 @@ services:
       - $PWD:/app
     ports:
       - 8080:8080
+  deploy:
+    build:
+      context: .
+      dockerfile: deploy.Dockerfile
+    environment:
+      - AWS_PROFILE=${AWS_PROFILE:-default}
+      - AWS_REGION=${AWS_REGION:-us-east-1}
+    volumes:
+      - .:/deployment
+      - $HOME/.aws:/home/deployer/.aws:ro
+    working_dir: /deployment
   aws:
     image: amazon/aws-cli
     # entrypoint: bash
@@ -36,14 +47,13 @@ services:
     build:
       dockerfile: terraform.Dockerfile
       context: .
-      # making this available in docker compose as a service
     environment:
-      AWS_REGION: "us-east-1"
+      - AWS_PROFILE=${AWS_PROFILE:-default}
+      - AWS_REGION=${AWS_REGION:-us-east-1}
     volumes:
-      - .:/app # Mount project root to /app
-      - $HOME/.aws/credentials:/home/tfuser/.aws/credentials:ro # AWS credentials
-      - $HOME/.aws/config:/home/tfuser/.aws/config:ro # AWS config
-    working_dir: /app # Where commands will be executed
+      - ./terraform:/workspace/terraform
+      - $HOME/.aws:/home/tfuser/.aws:ro
+    working_dir: /workspace/terraform/environments/${ENVIRONMENT:-staging}
   selenium:
     image: selenium/standalone-chrome
     platform: linux/x86_64
