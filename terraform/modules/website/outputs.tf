@@ -2,6 +2,10 @@
 # Output configuration for DNS records needed at third-party registrar
 # Structured to show all required DNS records for domain setup
 
+# terraform/modules/website/outputs.tf
+output "website_domain" {
+  value = local.website_domain
+}
 
 # Output the CloudFront distribution URL
 output "website_bucket_url" {

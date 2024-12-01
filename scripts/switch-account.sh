@@ -1,5 +1,5 @@
-# scripts/switch-account.sh
 #!/bin/bash
+# scripts/switch-account.sh
 
 # Get the list of available profiles
 profiles=$(aws configure list-profiles)
