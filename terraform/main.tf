@@ -1,6 +1,37 @@
 # terraform/main.tf
 # This file configures the website module with environment-specific settings
 
+# terraform/main.tf
+
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+
+  # Backend configuration for storing state
+  backend "s3" {
+    bucket         = "jdnguyen-terraform-state"
+    key            = "staging/terraform.tfstate"  # This will be overridden by backend config
+    region         = "us-east-1"
+    dynamodb_table = "terraform-state-locks"
+    encrypt        = true
+  }
+}
+
+provider "aws" {
+  region = "us-east-1"
+  default_tags {
+    tags = {
+      Project     = "DevOps Portfolio"
+      ManagedBy   = "Terraform"
+      Repository  = "portfolio-devops_resume"
+    }
+  }
+}
+
 # Reference the website module
 module "website" {
   source = "/modules/website"
