@@ -1,0 +1,59 @@
+{
+    "customizations": {
+        "vscode": {
+            "settings": {
+                // Keep your vim settings
+                "vim.smartRelativeLine": true,
+                "editor.lineNumbers": "relative",
+                "vim.leader": "<Space>",
+                "vim.insertModeKeyBindings": [
+                    {
+                        "before": ["j", "j"],
+                        "after": ["<Esc>"]
+                    }
+                ],
+                // Keep your essential normal mode bindings
+                "vim.normalModeKeyBindingsNonRecursive": [
+                    {
+                        "before": ["J"],
+                        "after": ["5", "j"]
+                    },
+                    {
+                        "before": ["K"],
+                        "after": ["5", "k"]
+                    },
+                    {
+                        "before": ["leader", "s"],
+                        "commands": ["workbench.action.files.save"]
+                    },
+                    {
+                        "before": ["<leader>", "e"],
+                        "commands": ["workbench.view.explorer"]
+                    },
+                    {
+                        "before": ["<leader>", "b"],
+                        "commands": ["workbench.action.toggleSidebarVisibility"]
+                    }
+                ],
+                // Essential editor settings
+                "editor.formatOnSave": true,
+                "editor.defaultFormatter": "esbenp.prettier-vscode",
+                "editor.minimap.enabled": false,
+                "workbench.colorTheme": "Default Light Modern",
+                "workbench.colorCustomizations": {
+                    "tab.activeBorder": "#ff0000",
+                    "tab.unfocusedActiveBorder": "#000000",
+                    "tab.activeBorderTop": "#ff0000"
+                }
+            },
+            "extensions": {
+                // Essential extensions only
+                "vscodevim.vim": true,
+                "esbenp.prettier-vscode": true,
+                "GitHub.copilot": true,
+                "GitHub.copilot-chat": true,
+                "GitHub.vscode-pull-request-github": true
+            }
+        }
+    }
+}

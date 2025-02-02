@@ -1,0 +1,16 @@
+{
+    "workbench.colorTheme": "Default Light Modern",
+    "editor.lineNumbers": "on",  // Changed from relative since you won't use vim
+    "vim.enabled": false,  // Disable vim on mobile
+    "editor.minimap.enabled": false,
+    "window.zoomLevel": 1.5,  // Slightly larger for mobile
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "workbench.colorCustomizations": {
+        "tab.activeBorder": "#ff0000",
+        "tab.unfocusedActiveBorder": "#000000",
+        "tab.activeBorderTop": "#ff0000"
+    },
+    "editor.bracketPairColorization.enabled": true,
+    "window.commandCenter": false
+}

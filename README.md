@@ -54,7 +54,8 @@
       <a href="#2-quick-start">Quick Start</a>
       <ul>
         <li><a href="#21-prerequisites">Prerequisites</a></li>
-        <li><a href="#22-basic-setup">Basic Setup</a></li>
+        <li><a href="#22-development-environment-settings">Development Environment Settings</a></li>
+        <li><a href="#23-basic-setup">Basic Setup</a></li>
       </ul>
     </li>
     <li>
@@ -161,7 +162,124 @@ Get up and running quickly with these basic steps. For detailed instructions, se
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### 2.2. Basic Setup
+### 2.2. Development Environment Settings
+
+#### Development Environment Settings
+
+This project includes optional development environment configurations to enhance your coding experience. These settings are available but not enforced, allowing developers to choose their preferred setup.
+
+##### VS Code Settings (.vscode)
+
+The project includes example VS Code settings that you can opt into:
+
+1. **Setup Instructions**
+
+   ```bash
+   # Copy example settings to your local .vscode directory
+   cp .vscode.example/settings.json .vscode/settings.json
+   ```
+
+2. **Mobile-Optimized Settings**
+   For iPhone/mobile development, copy the mobile-optimized settings:
+   ```bash
+   cp .vscode.example/codespaces.json .vscode/settings.json
+   ```
+
+###### Available Settings
+
+| Setting                  | Purpose               | Default                                 | Notes                                     |
+| ------------------------ | --------------------- | --------------------------------------- | ----------------------------------------- |
+| `workbench.colorTheme`   | UI theme              | "Default Light Modern"                  | Optimized for readability                 |
+| `editor.lineNumbers`     | Line number display   | "on" for mobile, "relative" for desktop | Relative numbers useful for Vim users     |
+| `vim.enabled`            | Vim keybindings       | false for mobile, true for desktop      | Disabled on mobile for touch optimization |
+| `editor.minimap.enabled` | Code overview minimap | false                                   | Disabled to save screen space             |
+| `window.zoomLevel`       | Interface scaling     | 1.5 for mobile                          | Adjusted for touch targets                |
+| `editor.formatOnSave`    | Auto-formatting       | true                                    | Maintains consistent code style           |
+
+##### Dev Container Configuration (.devcontainer)
+
+The project includes Dev Container configuration for consistent development environments across the team. Unlike VS Code settings, these files are tracked in git and define the project's development environment.
+
+###### Purpose
+
+- Ensures consistent development environment across team members
+- Automatically installs required extensions
+- Configures editor settings specific to container development
+
+###### Key Components
+
+1. **Editor Settings**
+
+   ```json
+   {
+     "editor.formatOnSave": true,
+     "editor.defaultFormatter": "esbenp.prettier-vscode",
+     "workbench.colorTheme": "Default Light Modern"
+   }
+   ```
+
+2. **Essential Extensions**
+
+   - VS Code Vim
+   - Prettier
+   - GitHub Copilot
+   - GitHub Pull Requests
+
+3. **Vim-Specific Configuration**
+   ```json
+   {
+     "vim.leader": "<Space>",
+     "vim.insertModeKeyBindings": [
+       {
+         "before": ["j", "j"],
+         "after": ["<Esc>"]
+       }
+     ]
+   }
+   ```
+
+##### Usage Notes
+
+4. **VS Code Settings**
+
+   - Personal preferences stored in `.vscode/`
+   - Not tracked in git (listed in `.gitignore`)
+   - Can be customized per developer
+
+5. **Dev Container Settings**
+
+   - Project-wide settings in `.devcontainer/`
+   - Tracked in git
+   - Takes effect when using dev containers
+   - Considered part of project configuration
+
+6. **Environment Selection**
+   - Choose mobile settings for touch devices
+   - Use desktop settings for keyboard-based development
+   - Dev container settings apply automatically in containers
+
+##### Customization
+
+Feel free to customize these settings for your workflow:
+
+7. **Personal VS Code Settings**
+
+   ```bash
+   mkdir -p .vscode
+   cp .vscode.example/settings.json .vscode/
+   # Edit .vscode/settings.json as needed
+   ```
+
+8. **Team-Wide Container Settings**
+   - Submit PR to modify `.devcontainer/devcontainer.json`
+   - Include justification for changes
+   - Consider impact on team workflow
+
+**Note**: Changes to `.devcontainer/` affect all developers using containers, while `.vscode/` changes are personal and won't impact others.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### 2.3. Basic Setup
 
 1. **Clone and prepare**
 
