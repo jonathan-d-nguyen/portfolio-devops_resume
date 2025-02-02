@@ -1,156 +1,91 @@
 #!/bin/bash
 # scripts/deploy.sh
-
 set -euo pipefail
 
-# Function to display usage
-usage() {
-    echo "Usage: $0 -p|--profile <aws_profile> [-e|--environment <environment>] [-i|--init-flags <terraform_init_flags>]"
-    echo "Examples:"
-    echo "  $0 -p account1 -e staging"
-    echo "  $0 -p account2 -e production"
-    echo "  $0 -p default -e staging -i '-reconfigure'"
-    exit 1
+# Function to load environment from .env file
+load_env() {
+    if [ -f .env ]; then
+        export $(cat .env | xargs)
+    fi
 }
 
-# Get the directory where the script is located
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-# Go up one directory to get to the project root
-PROJECT_ROOT="$( cd "${SCRIPT_DIR}/.." && pwd )"
-
-# Initialize variables with defaults
-INIT_FLAGS=""
-
-# Parse arguments
-while [[ "$#" -gt 0 ]]; do
-    case $1 in
-        -p|--profile) AWS_PROFILE="$2"; shift ;;
-        -e|--environment) ENVIRONMENT="$2"; shift ;;
-        -i|--init-flags) INIT_FLAGS="$2"; shift ;;
-        *) usage ;;
-    esac
-    shift
-done
-
-# Validate required arguments
-if [ -z "$AWS_PROFILE" ]; then
-    usage
+# Check if we need to switch accounts
+if [ -z "${AWS_PROFILE:-}" ] || [ -z "${ENVIRONMENT:-}" ]; then
+    # Run switch-account.sh
+    bash ./scripts/switch-account.sh
+    # Load the environment variables it created
+    load_env
 fi
 
-# Set environment to production if not specified
-ENVIRONMENT=${ENVIRONMENT:-staging}
-
-# # Debug information
-# echo "Script directory: ${SCRIPT_DIR}"
-# echo "Project root: ${PROJECT_ROOT}"
-# echo "Environment: ${ENVIRONMENT}"
-# echo "Looking for tfvars at: ${PROJECT_ROOT}/terraform/environments/${ENVIRONMENT}.tfvars"
-# echo "Checking directory structure..."
-# echo "- Project root: ${PROJECT_ROOT}"
-# echo "- Terraform dir exists: $([[ -d "${PROJECT_ROOT}/terraform" ]] && echo "Yes" || echo "No")"
-# echo "- Modules dir exists: $([[ -d "${PROJECT_ROOT}/terraform/modules" ]] && echo "Yes" || echo "No")"
-# echo "- Website module exists: $([[ -d "${PROJECT_ROOT}/terraform/modules/website" ]] && echo "Yes" || echo "No")"
-# echo "- Environments dir exists: $([[ -d "${PROJECT_ROOT}/terraform/environments" ]] && echo "Yes" || echo "No")"
-# echo "- tfvars file exists: $([[ -f "${PROJECT_ROOT}/terraform/environments/${ENVIRONMENT}.tfvars" ]] && echo "Yes" || echo "No")"
-# echo "- Backend config exists: $([[ -f "${PROJECT_ROOT}/terraform/backend-configs/${AWS_PROFILE}.hcl" ]] && echo "Yes" || echo "No")"
-
-# # Debug Docker paths
-# echo "Docker workspace paths:"
-# echo "- Working directory: /workspace/terraform"
-# echo "- Module path: /workspace/terraform/modules"
-# echo "- Environment path: /workspace/terraform/environments"
-
-
-# Ensure terraform directories exist
-mkdir -p "${PROJECT_ROOT}/terraform/environments/${ENVIRONMENT}"
-mkdir -p "${PROJECT_ROOT}/terraform/modules/website"
-mkdir -p "${PROJECT_ROOT}/terraform/backend-configs"
-
-
-# Copy main.tf to environment directory if it doesn't exist
-if [ ! -f "${PROJECT_ROOT}/terraform/environments/${ENVIRONMENT}/main.tf" ]; then
-    cp "${PROJECT_ROOT}/terraform/main.tf" "${PROJECT_ROOT}/terraform/environments/${ENVIRONMENT}/main.tf"
-fi
-
-# Check if tfvars file exists
-if [ ! -f "${PROJECT_ROOT}/terraform/environments/${ENVIRONMENT}.tfvars" ]; then
-    echo "Creating empty tfvars file..."
-    touch "${PROJECT_ROOT}/terraform/environments/${ENVIRONMENT}.tfvars"
-fi
-
-# Check if backend config exists
-if [ ! -f "${PROJECT_ROOT}/terraform/backend-configs/${AWS_PROFILE}.hcl" ]; then
-    echo "Creating empty backend config..."
-    touch "${PROJECT_ROOT}/terraform/backend-configs/${AWS_PROFILE}.hcl"
-fi
-
-# # Debug information
-# echo "Project structure verification:"
-# echo "------------------------------"
-# ls -la "${PROJECT_ROOT}/terraform"
-# echo "------------------------------"
-# ls -la "${PROJECT_ROOT}/terraform/modules"
-# echo "------------------------------"
-# ls -la "${PROJECT_ROOT}/terraform/environments/${ENVIRONMENT}"
-
-echo "Configuration:"
-echo "- AWS Profile: ${AWS_PROFILE}"
-echo "- Environment: ${ENVIRONMENT}"
-echo "- Init Flags: ${INIT_FLAGS}"
-echo "- Project Root: ${PROJECT_ROOT}"
-
-## echo "Directory structure verification:"
-# ls -la "${PROJECT_ROOT}/terraform/environments/${ENVIRONMENT}"
-# ls -la "${PROJECT_ROOT}/terraform/modules/website"
-
-# After parsing arguments but before directory setup
-export AWS_PROFILE=$AWS_PROFILE
-
-# First identity check - local environment
-echo "Verifying AWS identity..."
-if ! aws sts get-caller-identity; then
-    echo "Error: Failed to get AWS identity. Please check your AWS credentials and profile."
-    exit 1
-fi
-echo "Using AWS Profile: $AWS_PROFILE"
-
-# Clean up any existing state if reconfigure is requested
-if [[ "$INIT_FLAGS" == *"-reconfigure"* ]]; then
-    echo "Reconfigure requested - cleaning up existing state..."
-    rm -rf "${PROJECT_ROOT}/terraform/environments/${ENVIRONMENT}/.terraform"
-    rm -f "${PROJECT_ROOT}/terraform/environments/${ENVIRONMENT}/.terraform.lock.hcl"
-fi
-# Second identity check - Docker context
-echo "Verifying AWS identity in Docker context..."
-if ! docker-compose run --rm aws sts get-caller-identity; then
-    echo "Error: Failed to verify AWS identity in Docker context"
+# Verify we have the required variables
+if [ -z "${AWS_PROFILE:-}" ] || [ -z "${ENVIRONMENT:-}" ]; then
+    echo "Error: Required environment variables not set"
+    echo "AWS_PROFILE: ${AWS_PROFILE:-not set}"
+    echo "ENVIRONMENT: ${ENVIRONMENT:-not set}"
     exit 1
 fi
 
-# Proceed with Terraform operations only if both checks pass
+# Create required directories
+mkdir -p terraform/backend-configs
+mkdir -p terraform/environments
+
+# Safeguard against production deployments
+if [ "$ENVIRONMENT" = "production" ]; then
+    echo "⚠️  WARNING: You're about to deploy to PRODUCTION ⚠️"
+    echo "Account: ${AWS_ACCOUNT_ID:-unknown}"
+    echo "Profile: $AWS_PROFILE"
+    read -p "Are you absolutely sure? (type 'yes' to confirm): " confirmation
+    if [ "$confirmation" != "yes" ]; then
+        echo "Deployment cancelled"
+        exit 1
+    fi
+fi
+
+# Create backend config if it doesn't exist
+BACKEND_CONFIG="terraform/backend-configs/${AWS_PROFILE}.hcl"
+if [ ! -f "$BACKEND_CONFIG" ]; then
+    echo "Creating backend config at $BACKEND_CONFIG..."
+    cat > "$BACKEND_CONFIG" << EOF
+bucket         = "jdnguyen-terraform-state-${AWS_PROFILE}"
+key            = "${ENVIRONMENT}/terraform.tfstate"
+region         = "us-east-1"
+dynamodb_table = "terraform-state-locks"
+encrypt        = true
+EOF
+fi
+
+# Create environment tfvars if it doesn't exist
+TFVARS_FILE="terraform/environments/${ENVIRONMENT}.tfvars"
+if [ ! -f "$TFVARS_FILE" ]; then
+    echo "Creating tfvars file at $TFVARS_FILE..."
+    cat > "$TFVARS_FILE" << EOF
+environment = "${ENVIRONMENT}"
+region      = "us-east-1"
+EOF
+fi
+
+# Deploy infrastructure using Docker Compose
+echo "Deploying to $ENVIRONMENT environment using profile $AWS_PROFILE..."
+
 echo "Initializing Terraform..."
-docker-compose run --rm \
-    -e AWS_ACCESS_KEY_ID \
-    -e AWS_SECRET_ACCESS_KEY \
-    -e AWS_SESSION_TOKEN \
-    -e AWS_REGION="${AWS_REGION:-us-east-1}" \
-    -v "${PROJECT_ROOT}/terraform:/workspace/terraform" \
-    -w "/workspace/terraform/environments/${ENVIRONMENT}" \
+docker compose run --rm \
     terraform init \
-    -backend-config="/workspace/terraform/backend-configs/${AWS_PROFILE}.hcl" \
-    ${INIT_FLAGS}
+    -backend-config="/workspace/terraform/backend-configs/${AWS_PROFILE}.hcl"
 
-# Check if initialization was successful
-if [ $? -ne 0 ]; then
-    echo "Terraform initialization failed. Please check the errors above."
+echo "Planning Terraform changes..."
+docker compose run --rm \
+    terraform plan \
+    -var-file="/workspace/terraform/environments/${ENVIRONMENT}.tfvars" \
+    -out=tfplan
+
+echo "Review the plan above."
+read -p "Do you want to apply these changes? (yes/no): " apply_confirmation
+
+if [ "$apply_confirmation" = "yes" ]; then
+    echo "Applying changes..."
+    docker compose run --rm \
+        terraform apply tfplan
+else
+    echo "Deployment cancelled"
     exit 1
 fi
-
-# Apply Terraform with the correct variables
-echo "Applying Terraform configuration..."
-docker-compose run --rm \
-    -e AWS_PROFILE="${AWS_PROFILE}" \
-    -v "${PROJECT_ROOT}/terraform:/workspace/terraform" \
-    -w "/workspace/terraform/environments/${ENVIRONMENT}" \
-    terraform apply \
-    -var-file="/workspace/terraform/environments/${ENVIRONMENT}.tfvars"

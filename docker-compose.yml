@@ -1,4 +1,5 @@
 name: resume
+version: "3.8"
 # extra notes at bottom
 
 services:
@@ -43,7 +44,6 @@ services:
     # docker-compose run --rm --entrypoint aws aws s3 cp --recursive /app/website s3://jdnguyen.tech
 
   terraform:
-    # entrypoint: /bin/sh
     build:
       dockerfile: terraform.Dockerfile
       context: .
@@ -51,9 +51,9 @@ services:
       - AWS_PROFILE=${AWS_PROFILE:-default}
       - AWS_REGION=${AWS_REGION:-us-east-1}
     volumes:
-      - ./terraform:/workspace/terraform
+      - .:/workspace
       - $HOME/.aws:/home/tfuser/.aws:ro
-    working_dir: /workspace/terraform/environments/${ENVIRONMENT:-staging}
+    working_dir: /workspace
   selenium:
     image: selenium/standalone-chrome
     platform: linux/x86_64
