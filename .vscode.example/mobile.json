@@ -1,0 +1,57 @@
+// .vscode.example/mobile.json
+{
+  // Mobile-optimized theme settings
+  "workbench.colorTheme": "Default Light Modern",
+  "workbench.colorCustomizations": {
+    "tab.activeBorder": "#ff0000",
+    "tab.unfocusedActiveBorder": "#000000",
+    "tab.activeBorderTop": "#ff0000"
+  },
+
+  // Mobile-optimized editor settings
+  "editor.lineNumbers": "on", // Regular line numbers for better mobile viewing
+  "editor.minimap.enabled": false,
+  "window.zoomLevel": 1.5, // Larger zoom for mobile screens
+  "editor.fontSize": 16, // Larger font for mobile viewing
+
+  // Disable Vim for mobile
+  "vim.enabled": false, // Vim is difficult to use on mobile
+
+  // Mobile-optimized UI settings
+  "workbench.editor.showTabs": true,
+  "editor.rulers": [], // Remove ruler lines for cleaner mobile view
+  "editor.folding": false, // Disable code folding on mobile
+  "editor.glyphMargin": false,
+  "editor.lightbulb.enabled": false,
+
+  // Core functionality settings
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.bracketPairColorization.enabled": true,
+
+  // Mobile performance optimizations
+  "editor.renderWhitespace": "none", // Cleaner view on mobile
+  "editor.occurrencesHighlight": false,
+  "editor.renderControlCharacters": false,
+  "editor.hideCursorInOverviewRuler": true,
+  "editor.overviewRulerBorder": false,
+
+  // Reduced features for better mobile performance
+  "telemetry.telemetryLevel": "off",
+  "extensions.ignoreRecommendations": true,
+  "window.commandCenter": false,
+
+  // Touch-friendly settings
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.mouseWheelZoom": true,
+  "workbench.list.horizontalScrolling": true,
+
+  // Simplified file watching for better performance
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/tmp/**": true,
+    "**/dist/**": true
+  }
+}

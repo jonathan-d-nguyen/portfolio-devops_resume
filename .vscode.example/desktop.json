@@ -1,0 +1,62 @@
+// .vscode.example/codespaces.json
+{
+  // Desktop-friendly theme settings
+  "workbench.colorTheme": "Default Light Modern",
+  "workbench.colorCustomizations": {
+    "tab.activeBorder": "#ff0000",
+    "tab.unfocusedActiveBorder": "#000000",
+    "tab.activeBorderTop": "#ff0000"
+  },
+
+  // Desktop-optimized editor settings
+  "editor.lineNumbers": "relative", // Keep relative line numbers for vim users
+  "editor.minimap.enabled": false,
+  "window.zoomLevel": 0,
+  "editor.fontSize": 14,
+
+  // Vim settings for desktop use
+  "vim.enabled": true,
+  "vim.smartRelativeLine": true,
+  "vim.leader": "<Space>",
+  "vim.insertModeKeyBindings": [
+    {
+      "before": ["j", "j"],
+      "after": ["<Esc>"]
+    }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["J"],
+      "after": ["5", "j"]
+    },
+    {
+      "before": ["K"],
+      "after": ["5", "k"]
+    }
+  ],
+
+  // Core functionality settings
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.bracketPairColorization.enabled": true,
+
+  // Performance optimizations for Codespaces
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true
+  },
+
+  // Essential features only
+  "telemetry.telemetryLevel": "off",
+  "extensions.ignoreRecommendations": true,
+  "window.commandCenter": false
+}

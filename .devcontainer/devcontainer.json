@@ -1,59 +1,38 @@
 {
-    "customizations": {
-        "vscode": {
-            "settings": {
-                // Keep your vim settings
-                "vim.smartRelativeLine": true,
-                "editor.lineNumbers": "relative",
-                "vim.leader": "<Space>",
-                "vim.insertModeKeyBindings": [
-                    {
-                        "before": ["j", "j"],
-                        "after": ["<Esc>"]
-                    }
-                ],
-                // Keep your essential normal mode bindings
-                "vim.normalModeKeyBindingsNonRecursive": [
-                    {
-                        "before": ["J"],
-                        "after": ["5", "j"]
-                    },
-                    {
-                        "before": ["K"],
-                        "after": ["5", "k"]
-                    },
-                    {
-                        "before": ["leader", "s"],
-                        "commands": ["workbench.action.files.save"]
-                    },
-                    {
-                        "before": ["<leader>", "e"],
-                        "commands": ["workbench.view.explorer"]
-                    },
-                    {
-                        "before": ["<leader>", "b"],
-                        "commands": ["workbench.action.toggleSidebarVisibility"]
-                    }
-                ],
-                // Essential editor settings
-                "editor.formatOnSave": true,
-                "editor.defaultFormatter": "esbenp.prettier-vscode",
-                "editor.minimap.enabled": false,
-                "workbench.colorTheme": "Default Light Modern",
-                "workbench.colorCustomizations": {
-                    "tab.activeBorder": "#ff0000",
-                    "tab.unfocusedActiveBorder": "#000000",
-                    "tab.activeBorderTop": "#ff0000"
-                }
-            },
-            "extensions": {
-                // Essential extensions only
-                "vscodevim.vim": true,
-                "esbenp.prettier-vscode": true,
-                "GitHub.copilot": true,
-                "GitHub.copilot-chat": true,
-                "GitHub.vscode-pull-request-github": true
-            }
-        }
+  "name": "Development Environment",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        // Base settings that apply to all environments
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.minimap.enabled": false,
+
+        // These conditions are evaluated based on context variables
+        "editor.lineNumbers": "${if:${localEnv:CODESPACES_BROWSER}=mobile|on|relative}",
+        "window.zoomLevel": "${if:${localEnv:CODESPACES_BROWSER}=mobile|1.5|0}",
+        "vim.enabled": "${if:${localEnv:CODESPACES_BROWSER}=mobile|false|true}",
+        "editor.fontSize": "${if:${localEnv:CODESPACES_BROWSER}=mobile|16|14}"
+      },
+      "extensions": {
+        // Core extensions for all environments
+        "recommendations": [
+          "esbenp.prettier-vscode",
+          "GitHub.copilot",
+          "GitHub.copilot-chat"
+        ],
+        // Conditional extensions
+        "unwantedRecommendations": [
+          "${if:${localEnv:CODESPACES_BROWSER}=mobile|vscodevim.vim|}",
+          "${if:${localEnv:CODESPACES_BROWSER}=mobile|wakatime.vscode-wakatime|}"
+        ]
+      }
     }
+  },
+  "postCreateCommand": "bash scripts/setup-vscode-env.sh",
+  "remoteEnv": {
+    // This can be set by your GitHub Codespaces preferences
+    // or detected through User-Agent in the postCreateCommand
+    "CODESPACES_BROWSER": "${localEnv:CODESPACES_BROWSER}"
+  }
 }
