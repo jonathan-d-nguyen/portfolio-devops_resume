@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/modernist-8962f109-2fcd-48d3-ab56-0c7fad438113/styles.css">
+<script src="_ds/modernist-8962f109-2fcd-48d3-ab56-0c7fad438113/_ds_bundle.js"></script>
+<script src="./image-slot.js"></script>
+<script>
+  (function () {
+    try {
+      var t = window.localStorage.getItem('jn-theme');
+      document.documentElement.dataset.theme = (t === 'light' || t === 'dark') ? t : 'system';
+    } catch (e) {
+      document.documentElement.dataset.theme = 'system';
+    }
+  })();
+</script>
+<style>
+  body { margin: 0; text-wrap: pretty; background: var(--color-bg); }
+  a { color: var(--color-accent-700); text-underline-offset: 3px; }
+  a:hover { color: var(--color-accent); }
+  :root {
+    --color-paper: #f3f2f2;
+    --color-accent: #0b5fd0;
+    --color-accent-100: #eef4ff;
+    --color-accent-200: #d9e6ff;
+    --color-accent-300: #bcd2ff;
+    --color-accent-400: #85adff;
+    --color-accent-500: #3d82f5;
+    --color-accent-600: #1a5fd6;
+    --color-accent-700: #0b47a8;
+    --color-accent-800: #063077;
+    --color-accent-900: #10254d;
+    --color-accent-2: #0b5fd0;
+    --color-accent-2-100: #eef4ff;
+    --color-accent-2-200: #d9e6ff;
+    --color-accent-2-300: #bcd2ff;
+    --color-accent-2-400: #85adff;
+    --color-accent-2-500: #3d82f5;
+    --color-accent-2-600: #1a5fd6;
+    --color-accent-2-700: #0b47a8;
+    --color-accent-2-800: #063077;
+    --color-accent-2-900: #10254d;
+  }
+  html[data-theme="dark"] {
+    --color-bg: #1a1918;
+    --color-surface: #262423;
+    --color-text: #f3f2f2;
+    --color-divider: color-mix(in srgb, #f3f2f2 35%, transparent);
+    --color-accent-700: #85adff;
+  }
+  html[data-theme="dark"] .btn-primary { color: var(--color-paper); }
+  @media (prefers-color-scheme: dark) {
+    html[data-theme="system"] {
+      --color-bg: #1a1918;
+      --color-surface: #262423;
+      --color-text: #f3f2f2;
+      --color-divider: color-mix(in srgb, #f3f2f2 35%, transparent);
+      --color-accent-700: #85adff;
+    }
+    html[data-theme="system"] .btn-primary { color: var(--color-paper); }
+  }
+  .nav { flex-wrap: wrap; row-gap: 8px; }
+  .nav .btn { min-height: 44px; }
+  @media (max-width: 640px) {
+    .nav { padding-block: 8px; }
+    .nav .nav-brand { flex: 1 0 100%; }
+    .nav .btn { padding-inline: 12px; }
+    .input, textarea.input { font-size: 16px; }
+    .pagetop { padding-top: 64px !important; }
+  }
+  .rowgrid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  .rowgrid > :first-child { display: none; }
+  .split { display: grid; grid-template-columns: 1fr; gap: 42px; }
+  .statrow { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 42px clamp(24px,4vw,56px); }
+  @media (min-width: 900px) {
+    .rowgrid { grid-template-columns: 64px repeat(auto-fit, minmax(300px, 1fr)); gap: 20px clamp(24px,4vw,64px); }
+    .rowgrid > :first-child { display: block; }
+    .split { grid-template-columns: var(--split, 1fr 1fr); gap: 28px clamp(24px,5vw,96px); }
+  }
+</style>
+</helmet>
+
+<div style="background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); min-height: 100vh;">
+
+  <nav class="nav" style="padding-inline: max(clamp(20px,5vw,72px), calc((100% - 1200px) / 2 + clamp(20px,5vw,72px)));">
+    <span class="nav-brand">Jonathan Nguyen</span>
+    <button type="button" class="btn btn-ghost" style="border:0;padding:6px 10px;gap:8px;" onClick="{{ goHome }}"><sc-if value="{{ onHome }}"><span style="width:8px;height:8px;background:var(--color-accent);display:block;"></span></sc-if>Home</button>
+    <button type="button" class="btn btn-ghost" style="border:0;padding:6px 10px;gap:8px;" onClick="{{ goWork }}"><sc-if value="{{ onWork }}"><span style="width:8px;height:8px;background:var(--color-accent);display:block;"></span></sc-if>Work</button>
+    <button type="button" class="btn btn-ghost" style="border:0;padding:6px 10px;gap:8px;" onClick="{{ goAbout }}"><sc-if value="{{ onAbout }}"><span style="width:8px;height:8px;background:var(--color-accent);display:block;"></span></sc-if>About</button>
+    <span style="display:flex;align-items:center;gap:2px;margin-left:auto;border:2px solid var(--color-divider);">
+      <button type="button" class="btn btn-ghost" style="border:0;padding:6px 10px;gap:6px;font-size:13px;" onClick="{{ setLight }}"><sc-if value="{{ isLight }}"><span style="width:6px;height:6px;background:var(--color-accent);display:block;"></span></sc-if>Light</button>
+      <button type="button" class="btn btn-ghost" style="border:0;padding:6px 10px;gap:6px;font-size:13px;" onClick="{{ setDark }}"><sc-if value="{{ isDark }}"><span style="width:6px;height:6px;background:var(--color-accent);display:block;"></span></sc-if>Dark</button>
+      <button type="button" class="btn btn-ghost" style="border:0;padding:6px 10px;gap:6px;font-size:13px;" onClick="{{ setSystem }}"><sc-if value="{{ isSystem }}"><span style="width:6px;height:6px;background:var(--color-accent);display:block;"></span></sc-if>Auto</button>
+    </span>
+    <button type="button" class="btn btn-primary" onClick="{{ goContact }}">Start a project</button>
+  </nav>
+
+  <sc-if value="{{ onHome }}" hint-placeholder-val="{{ true }}">
+  <div data-screen-label="Home" style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px,5vw,72px);">
+
+    <section class="pagetop" style="padding: 112px 0 84px;">
+      <h1 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(42px,6.2vw,84px); line-height: 1.06; letter-spacing: -0.02em; margin: 0 0 0 -0.058em;">
+        <span style="display:block;">From the wire</span>
+        <span style="display:block;">to the web.</span>
+      </h1>
+      <p style="font-size: 17px; line-height: 28px; max-width: 60ch; margin: 42px 0 0;">I build websites and the infrastructure they sit on. Ten years of Navy IT, and currently the networked show systems behind a couple of world-class Disneyland attractions, which is a long way of saying I have spent my career keeping things running while people are watching. Front end in React and JavaScript, backed by a working knowledge of cloud, Docker and secure networking. Clean sites with function and beauty in the forefront, wired by somebody who knows what is going on behind the wall.</p>
+      <div style="display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: 28px;">
+        <button type="button" class="btn btn-primary" onClick="{{ goContact }}">Start a project</button>
+        
+      </div>
+    </section>
+
+    <hr style="height:2px;border:0;margin:0;background:var(--color-divider);">
+
+    <section style="padding: 70px 0;" aria-label="Background">
+      <div class="statrow">
+        <div>
+          <p style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(34px,3.4vw,48px); line-height: 56px; color: var(--color-accent); margin: 0 0 0 -0.045em;">10 yr</p>
+          <p style="font-size: 13px; line-height: 18px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent); margin: 14px 0 0;">Navy IT and secure networks</p>
+        </div>
+        <div>
+          <p style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(34px,3.4vw,48px); line-height: 56px; color: var(--color-accent); margin: 0 0 0 -0.045em;">Disney</p>
+          <p style="font-size: 13px; line-height: 18px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent); margin: 14px 0 0;">Show systems engineering</p>
+        </div>
+        <div>
+          <p style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(34px,3.4vw,48px); line-height: 56px; color: var(--color-accent); margin: 0 0 0 -0.045em;">AWS SA</p>
+          <p style="font-size: 13px; line-height: 18px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent); margin: 14px 0 0;">Solutions Architect, plus Security+</p>
+        </div>
+        <div>
+          <p style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(34px,3.4vw,48px); line-height: 56px; color: var(--color-accent); margin: 0 0 0 -0.045em;">1</p>
+          <p style="font-size: 13px; line-height: 18px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent); margin: 14px 0 0;">Person, start to finish</p>
+        </div>
+      </div>
+    </section>
+
+    <hr style="height:2px;border:0;margin:0;background:var(--color-divider);">
+
+    <section style="padding: 84px 0 42px;">
+      <span style="display:block; font-size:13px; line-height:14px; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-accent-700); margin:0 0 14px;">What I do</span>
+      <div class="rowgrid" style="align-items:baseline;padding:42px 0;">
+        <p style="font-family:var(--font-heading);font-weight:800;font-size:15px;line-height:28px;margin:0;">01</p>
+        <h2 style="font-family:var(--font-heading);font-weight:800;font-size:24px;line-height:28px;letter-spacing:-0.01em;margin:0;">Websites and front-end applications</h2>
+        <div>
+          <p style="font-size:15.5px;line-height:28px;margin:0;max-width:52ch;color:color-mix(in srgb, var(--color-text) 78%, transparent);">HTML, CSS, JavaScript and React, with REST APIs wired into whatever your business already runs on. Fast on a phone, straightforward for you to update, and designed for you rather than pulled off a shelf with three hundred other logos already on it.</p>
+          <sc-if value="{{ showPricing }}"><p style="font-size:13px;line-height:14px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-accent-700);margin:14px 0 0;">Fixed price, quoted per project</p></sc-if>
+        </div>
+      </div>
+      <div class="rowgrid" style="border-top:2px solid var(--color-divider);align-items:baseline;padding:42px 0;">
+        <p style="font-family:var(--font-heading);font-weight:800;font-size:15px;line-height:28px;margin:0;">02</p>
+        <h2 style="font-family:var(--font-heading);font-weight:800;font-size:24px;line-height:28px;letter-spacing:-0.01em;margin:0;">Networks and infrastructure</h2>
+        <div>
+          <p style="font-size:15.5px;line-height:28px;margin:0;max-width:52ch;color:color-mix(in srgb, var(--color-text) 78%, transparent);">Cabling, switching, VLANs, DNS, routing, wireless coverage and remote access. Designed for the building you are actually in rather than the one on the floor plan, and documented so the next person can read it.</p>
+          <sc-if value="{{ showPricing }}"><p style="font-size:13px;line-height:14px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-accent-700);margin:14px 0 0;">Site survey first, then a fixed quote</p></sc-if>
+        </div>
+      </div>
+      <div class="rowgrid" style="border-top:2px solid var(--color-divider);align-items:baseline;padding:42px 0;">
+        <p style="font-family:var(--font-heading);font-weight:800;font-size:15px;line-height:28px;margin:0;">03</p>
+        <h2 style="font-family:var(--font-heading);font-weight:800;font-size:24px;line-height:28px;letter-spacing:-0.01em;margin:0;">Hosting, security and upkeep</h2>
+        <div>
+          <p style="font-size:15.5px;line-height:28px;margin:0;max-width:52ch;color:color-mix(in srgb, var(--color-text) 78%, transparent);">Deployment, Docker, backups, monitoring and patching, handled by somebody who holds a Security+ and treats your customer data accordingly. Month to month, cancel whenever. I would rather you stayed because it is working.</p>
+          <sc-if value="{{ showPricing }}"><p style="font-size:13px;line-height:14px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-accent-700);margin:14px 0 0;">Monthly, no minimum term</p></sc-if>
+        </div>
+      </div>
+    </section>
+
+    <hr style="height:2px;border:0;margin:0;background:var(--color-divider);">
+
+    <section class="split" style="--split: minmax(0,5fr) minmax(0,7fr);align-items:start;padding:84px 0;">
+      <div>
+        <span style="display:block; font-size:13px; line-height:14px; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-accent-700); margin:0 0 14px;">Why it matters to you</span>
+        <h2 style="font-family:var(--font-heading);font-weight:800;font-size:32px;line-height:42px;letter-spacing:-0.015em;margin:0;">Most developers stop at the code</h2>
+      </div>
+      <div>
+        <p style="font-size:17px;line-height:28px;margin:0;max-width:58ch;">A slow site, email quietly landing in spam, the card reader dropping off the Wi-Fi in the middle of a Saturday rush. None of those are front end problems, which is usually the point at which you get handed a phone number for somebody else.</p>
+        <p style="font-size:17px;line-height:28px;margin:28px 0 0;max-width:58ch;">I have spent a decade on the other side of that line. Secure networks in the Navy, then show systems for attractions where an outage is measured in a queue of a thousand people, most of them warm and holding a churro. You get one person who can follow the problem from the wall jack to the browser and back.</p>
+        <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;margin-top:28px;">
+          <button type="button" class="btn btn-primary" onClick="{{ goContact }}">Start a project</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ onWork }}">
+  <div data-screen-label="Work" style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px,5vw,72px);">
+
+    <section class="pagetop" style="padding: 112px 0 56px;">
+      <h1 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(38px,5vw,68px); line-height: 1.06; letter-spacing: -0.02em; margin: 0 0 0 -0.058em;">Work</h1>
+      <p style="font-size: 17px; line-height: 28px; max-width: 58ch; margin: 42px 0 0;">Most of what I have built runs behind a badge reader, or on a network you cannot see from the street, which makes for a body of work that is difficult to screenshot. Here is what it was, and what it means for a project of yours.</p>
+    </section>
+
+    <hr style="height:2px;border:0;margin:0;background:var(--color-divider);">
+
+    <section style="padding:70px 0 42px;">
+      <span style="display:block; font-size:13px; line-height:14px; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-accent-700); margin:0 0 28px;">Selected engagements</span>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:56px clamp(24px,4vw,56px);">
+        <article>
+          <p style="font-size:13px;line-height:14px;letter-spacing:0.08em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 70%, transparent);margin:0;">The Walt Disney Company</p>
+          <h3 style="font-family:var(--font-heading);font-weight:800;font-size:24px;line-height:28px;letter-spacing:-0.01em;margin:14px 0 0;">Show systems for Galaxy's Edge and Runaway Railway</h3>
+          <p style="font-size:15.5px;line-height:28px;margin:14px 0 0;color:color-mix(in srgb, var(--color-text) 78%, transparent);">Implementation and troubleshooting on the multidisciplinary show networks behind two flagship attractions. Distributed systems, debugged under real pressure, in front of an audience that paid to be there.</p>
+        </article>
+        <article>
+          <p style="font-size:13px;line-height:14px;letter-spacing:0.08em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 70%, transparent);margin:0;">United States Navy</p>
+          <h3 style="font-family:var(--font-heading);font-weight:800;font-size:24px;line-height:28px;letter-spacing:-0.01em;margin:14px 0 0;">A decade of secure IT networks</h3>
+          <p style="font-size:15.5px;line-height:28px;margin:14px 0 0;color:color-mix(in srgb, var(--color-text) 78%, transparent);">Ten years of IT where the standard for secure is not a checkbox with a friendly green tick next to it. Requirements gathering, testing and lifecycle management, on infrastructure that had to hold.</p>
+        </article>
+        <article>
+          <p style="font-size:13px;line-height:14px;letter-spacing:0.08em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 70%, transparent);margin:0;">Built and run myself</p>
+          <h3 style="font-family:var(--font-heading);font-weight:800;font-size:24px;line-height:28px;letter-spacing:-0.01em;margin:14px 0 0;">Self-hosted development infrastructure</h3>
+          <p style="font-size:15.5px;line-height:28px;margin:14px 0 0;color:color-mix(in srgb, var(--color-text) 78%, transparent);">A Git server on an Ubuntu server, secure from afar with WireGuard, and Docker deployments of my household application services. Built because it is useful and because I do this for <u>my own enjoyment</u>.&nbsp; Your stack will be purpose built for you.</p>
+        </article>
+      </div>
+    </section>
+
+    <hr style="height:2px;border:0;margin:0;background:var(--color-divider);">
+
+    <section style="padding:84px 0 42px;">
+      <span style="display:block; font-size:13px; line-height:14px; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-accent-700); margin:0 0 14px;">How a project runs</span>
+      <div class="rowgrid" style="align-items:baseline;padding:42px 0;">
+        <p style="font-family:var(--font-heading);font-weight:800;font-size:15px;line-height:28px;margin:0;">01</p>
+        <h2 style="font-family:var(--font-heading);font-weight:800;font-size:24px;line-height:28px;letter-spacing:-0.01em;margin:0;">A conversation about the business</h2>
+        <p style="font-size:15.5px;line-height:28px;margin:0;max-width:52ch;color:color-mix(in srgb, var(--color-text) 78%, transparent);">Who buys from you, what they need to see, and what the site or the network has to do that it currently does not.</p>
+      </div>
+      <div class="rowgrid" style="border-top:2px solid var(--color-divider);align-items:baseline;padding:42px 0;">
+        <p style="font-family:var(--font-heading);font-weight:800;font-size:15px;line-height:28px;margin:0;">02</p>
+        <h2 style="font-family:var(--font-heading);font-weight:800;font-size:24px;line-height:28px;letter-spacing:-0.01em;margin:0;">A fixed quote and a date</h2>
+        <p style="font-size:15.5px;line-height:28px;margin:0;max-width:52ch;color:color-mix(in srgb, var(--color-text) 78%, transparent);">Written down and scoped in plain language, including what is not in scope. Half up front, half at launch.</p>
+      </div>
+      <div class="rowgrid" style="border-top:2px solid var(--color-divider);align-items:baseline;padding:42px 0;">
+        <p style="font-family:var(--font-heading);font-weight:800;font-size:15px;line-height:28px;margin:0;">03</p>
+        <h2 style="font-family:var(--font-heading);font-weight:800;font-size:24px;line-height:28px;letter-spacing:-0.01em;margin:0;">The build, in the open</h2>
+        <p style="font-size:15.5px;line-height:28px;margin:0;max-width:52ch;color:color-mix(in srgb, var(--color-text) 78%, transparent);">A link you can check any day of the week, and a short note every week on what moved. No disappearing for a month and coming back with a surprise.</p>
+      </div>
+      <div class="rowgrid" style="border-top:2px solid var(--color-divider);align-items:baseline;padding:42px 0;">
+        <p style="font-family:var(--font-heading);font-weight:800;font-size:15px;line-height:28px;margin:0;">04</p>
+        <h2 style="font-family:var(--font-heading);font-weight:800;font-size:24px;line-height:28px;letter-spacing:-0.01em;margin:0;">Handover, properly</h2>
+        <p style="font-size:15.5px;line-height:28px;margin:0;max-width:52ch;color:color-mix(in srgb, var(--color-text) 78%, transparent);">Accounts and domains in your name, a written record of how it is put together, and a walkthrough so you can make small changes without calling me. I will still answer if you call.</p>
+      </div>
+    </section>
+
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ onAbout }}">
+  <div data-screen-label="About" style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px,5vw,72px);">
+
+    <section class="split pagetop" style="--split: minmax(0,7fr) minmax(0,5fr);align-items:start;padding:112px 0 84px;">
+      <div>
+        <h1 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(38px,5vw,68px); line-height: 1.06; letter-spacing: -0.02em; margin: 0 0 0 -0.058em;">Jonathan Nguyen</h1>
+        <p style="font-size:17px;line-height:28px;max-width:58ch;margin:42px 0 0;">I am a systems engineer and developer. I understand the whole lifecycle of an application, from the network switches up to the interface.</p>
+        <p style="font-size:17px;line-height:28px;max-width:58ch;margin:28px 0 0;color:color-mix(in srgb, var(--color-text) 78%, transparent);">I spent a decade in the Navy managing secure IT networks. These days I implement and troubleshoot the networked show systems for major Disneyland attractions, Star Wars: Galaxy's Edge and Mickey &amp; Minnie's Runaway Railway among them. That work is multidisciplinary, distributed, and unforgiving about being wrong in front of several thousand guests.</p>
+        <p style="font-size:17px;line-height:28px;max-width:58ch;margin:28px 0 0;color:color-mix(in srgb, var(--color-text) 78%, transparent);">I have carried that same interest in complex problems into web development. Front end applications in React and JavaScript, backed by a practical understanding of cloud infrastructure, Docker and secure networking. Software that looks good and is structurally sound and secure from the ground up.</p>
+        <p style="font-size:17px;line-height:28px;max-width:58ch;margin:28px 0 0;color:color-mix(in srgb, var(--color-text) 78%, transparent);">Years in hospitality before all of that covered the part engineers tend to skip. An interface has to work for whoever walks up to it: tired, one handed, on a phone at eleven percent, not for the person who built it.</p>
+      </div>
+      <figure class="grayscale" style="margin:0;">
+        <image-slot id="jn-portrait" shape="rect" placeholder="Drop a photo of yourself" style="width:100%;aspect-ratio:4/5;"></image-slot>
+      </figure>
+    </section>
+
+    <hr style="height:2px;border:0;margin:0;background:var(--color-divider);">
+
+    <section style="padding:70px 0;">
+      <span style="display:block; font-size:13px; line-height:14px; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-accent-700); margin:0 0 28px;">What I work with</span>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:42px clamp(24px,4vw,56px);">
+        <div>
+          <p style="font-family:var(--font-heading);font-weight:800;font-size:17px;line-height:28px;margin:0;">Front end</p>
+          <p style="font-size:15.5px;line-height:28px;margin:6px 0 0;color:color-mix(in srgb, var(--color-text) 78%, transparent);">HTML, CSS, JavaScript, jQuery and ReactJS. Building and consuming RESTful APIs. Python and Selenium for scraping and browser automation.</p>
+        </div>
+        <div>
+          <p style="font-family:var(--font-heading);font-weight:800;font-size:17px;line-height:28px;margin:0;">Networks</p>
+          <p style="font-size:15.5px;line-height:28px;margin:6px 0 0;color:color-mix(in srgb, var(--color-text) 78%, transparent);">TCP/IP, DNS, VLANs and routing. Structured cabling, managed switching, wireless design, firewalls and remote access.</p>
+        </div>
+        <div>
+          <p style="font-family:var(--font-heading);font-weight:800;font-size:17px;line-height:28px;margin:0;">Servers and deployment</p>
+          <p style="font-size:15.5px;line-height:28px;margin:6px 0 0;color:color-mix(in srgb, var(--color-text) 78%, transparent);">Docker, self hosted Git on Synology NAS, ZeroTier software defined networking, Unifi controllers, hosting, domains, and email that does not land in spam.</p>
+        </div>
+        <div>
+          <p style="font-family:var(--font-heading);font-weight:800;font-size:17px;line-height:28px;margin:0;">Security and cloud</p>
+          <p style="font-size:15.5px;line-height:28px;margin:6px 0 0;color:color-mix(in srgb, var(--color-text) 78%, transparent);">CompTIA Security+ and AWS Solutions Architect certified. Secure application practice, backups and monitoring as standard.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ onContact }}">
+  <div data-screen-label="Contact" style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px,5vw,72px);">
+
+    <section class="split pagetop" style="align-items:start;padding:112px 0 84px;">
+      <div>
+        <h1 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(38px,5vw,68px); line-height: 1.06; letter-spacing: -0.02em; margin: 0 0 0 -0.058em;">Tell me about your business.</h1>
+        <p style="font-size:17px;line-height:28px;max-width:52ch;margin:42px 0 0;">Twenty minutes, no charge, no pitch. You will leave knowing what you need and roughly what it costs, whether or not I am the one who builds it.</p>
+        <div style="margin-top:42px;display:grid;gap:14px;">
+          <p style="font-size:13px;line-height:14px;letter-spacing:0.08em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 70%, transparent);margin:0;">Or just email me</p>
+          <p style="font-family:var(--font-heading);font-weight:800;font-size:24px;line-height:28px;margin:0;"><a href="mailto:hello@jdnguyen.tech">hello@jdnguyen.tech</a></p>
+          <p style="font-size:13px;line-height:14px;letter-spacing:0.08em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 70%, transparent);margin:14px 0 0;">Or look at the code</p>
+          <p style="font-family:var(--font-heading);font-weight:800;font-size:24px;line-height:28px;margin:0;"><a href="https://github.com/jonathan-d-nguyen" target="_blank" rel="noopener">github.com/jonathan-d-nguyen</a></p>
+          <p style="font-size:15.5px;line-height:28px;margin:14px 0 0;color:color-mix(in srgb, var(--color-text) 78%, transparent);max-width:44ch;">I answer within one working day. If I am not the right fit for the job, you will hear it in the first reply rather than the third.</p>
+        </div>
+      </div>
+      <div>
+        <div style="display:grid;gap:20px;">
+          <div class="field"><label for="jn-name">Your name</label><input class="input" id="jn-name" type="text" placeholder="Who I'll be speaking to"></div>
+          <div class="field"><label for="jn-biz">Business</label><input class="input" id="jn-biz" type="text" placeholder="What you do, and where"></div>
+          <div class="field"><label for="jn-email">Email</label><input class="input" id="jn-email" type="email" placeholder="you@yourbusiness.com"></div>
+          <div class="field"><label for="jn-need">What you need</label><textarea class="input" id="jn-need" rows="5" placeholder="A new site, a network that keeps dropping, both, or something you cannot name yet."></textarea></div>
+          <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;margin-top:14px;">
+            <button type="button" class="btn btn-primary">Send it</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ showCta }}">
+  <section style="background: var(--color-accent); color: var(--color-paper);">
+    <div style="max-width:1200px;margin:0 auto;padding:84px clamp(20px,5vw,72px);">
+      <h3 style="font-family:var(--font-heading);font-weight:800;font-size:clamp(34px,4.2vw,56px);line-height:1.06;letter-spacing:-0.015em;margin:0 0 0 -0.058em;">
+        <span style="display:block;">Tell me about your business.</span>
+      </h3>
+      <p style="font-size:17px;line-height:28px;max-width:52ch;margin:28px 0 0;">Twenty minutes, no charge, no pitch. You will leave knowing what you need and roughly what it costs.</p>
+      <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;margin-top:42px;">
+        <button type="button" class="btn btn-ghost" style="color:var(--color-paper);border-color:var(--color-paper);" onClick="{{ goContact }}">Book a call</button>
+        <a class="btn btn-ghost" href="mailto:hello@jdnguyen.tech" style="color:var(--color-paper);border-color:var(--color-paper);">hello@jdnguyen.tech</a>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <div style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,72px);">
+    <footer style="display:flex;flex-wrap:wrap;gap:14px 42px;justify-content:space-between;padding:56px 0;font-size:13px;line-height:28px;color:color-mix(in srgb, var(--color-text) 70%, transparent);">
+      <span>Jonathan Nguyen. Networks and websites for small businesses.</span>
+      <span style="display:flex;flex-wrap:wrap;gap:8px 28px;"><a href="mailto:hello@jdnguyen.tech">hello@jdnguyen.tech</a><a href="https://github.com/jonathan-d-nguyen" target="_blank" rel="noopener">github.com/jonathan-d-nguyen</a></span>
+    </footer>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showPricing&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+class Component extends DCLogic {
+  state = { page: 'home', theme: 'system' };
+  go(p) {
+    return () => {
+      this.setState({ page: p });
+      if (typeof window !== 'undefined') window.scrollTo(0, 0);
+    };
+  }
+  componentDidMount() {
+    let saved = null;
+    try { saved = window.localStorage.getItem('jn-theme'); } catch (e) {}
+    const theme = (saved === 'light' || saved === 'dark' || saved === 'system') ? saved : 'system';
+    this.applyTheme(theme);
+    this.setState({ theme });
+  }
+  applyTheme(theme) {
+    if (typeof document !== 'undefined') document.documentElement.dataset.theme = theme;
+  }
+  setTheme(theme) {
+    return () => {
+      this.applyTheme(theme);
+      try { window.localStorage.setItem('jn-theme', theme); } catch (e) {}
+      this.setState({ theme });
+    };
+  }
+  renderVals() {
+    const p = this.state.page;
+    return {
+      onHome: p === 'home', onWork: p === 'work', onAbout: p === 'about', onContact: p === 'contact',
+      showCta: p !== 'contact',
+      goHome: this.go('home'), goWork: this.go('work'), goAbout: this.go('about'), goContact: this.go('contact'),
+      isLight: this.state.theme === 'light', isDark: this.state.theme === 'dark', isSystem: this.state.theme === 'system',
+      setLight: this.setTheme('light'), setDark: this.setTheme('dark'), setSystem: this.setTheme('system'),
+      showPricing: this.props.showPricing ?? true
+    };
+  }
+}
+</script>
+</body>
+</html>

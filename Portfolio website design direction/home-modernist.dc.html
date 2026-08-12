@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/modernist-8962f109-2fcd-48d3-ab56-0c7fad438113/styles.css">
+<script src="_ds/modernist-8962f109-2fcd-48d3-ab56-0c7fad438113/_ds_bundle.js"></script>
+<script src="./image-slot.js"></script>
+<style>
+  body { margin: 0; text-wrap: pretty; background: var(--color-bg); }
+  a { color: var(--color-accent-700); }
+  a:hover { color: var(--color-accent); }
+</style>
+</helmet>
+
+<div style="background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); min-height: 100vh;">
+
+  <nav class="nav" style="padding-inline: max(clamp(20px,5vw,72px), calc((100% - 1200px) / 2 + clamp(20px,5vw,72px)));">
+    <span class="nav-brand">Ortega Web</span>
+    <a href="#work">Work</a>
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <button type="button" class="btn btn-primary">Start a project</button>
+  </nav>
+
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px,5vw,72px);">
+
+    <section style="padding: 112px 0 84px;">
+      <h1 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(42px,6.2vw,84px); line-height: 1.06; letter-spacing: -0.02em; margin: 0 0 0 -0.058em;">
+        <span style="display:block;">Small businesses deserve</span>
+        <span style="display:block;">fast, honest websites.</span>
+      </h1>
+      <p style="font-size: 17px; line-height: 28px; max-width: 58ch; margin: 42px 0 0;">I'm a freelance web developer. I build and look after sites for shops, studios and practices — quick to load, simple to update, delivered on a fixed price and a date I stick to.</p>
+      <div style="display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: 28px;">
+        <button type="button" class="btn btn-primary">Start a project</button>
+        <button type="button" class="btn btn-ghost">See the work</button>
+      </div>
+    </section>
+
+    <hr style="height:2px;border:0;margin:0;background:var(--color-divider);" />
+
+    <section style="padding: 70px 0;" aria-label="By the numbers">
+      <div style="display: grid; grid-template-columns: repeat(4, auto); justify-content: space-between; gap: 42px 28px;">
+        <div>
+          <p style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(34px,3.4vw,48px); line-height: 56px; color: var(--color-accent); margin: 0 0 0 -0.045em;">18</p>
+          <p style="font-size: 13px; line-height: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent); margin: 14px 0 0;">Businesses served</p>
+        </div>
+        <div>
+          <p style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(34px,3.4vw,48px); line-height: 56px; color: var(--color-accent); margin: 0 0 0 -0.045em;">0.9s</p>
+          <p style="font-size: 13px; line-height: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent); margin: 14px 0 0;">Median load time</p>
+        </div>
+        <div>
+          <p style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(34px,3.4vw,48px); line-height: 56px; color: var(--color-accent); margin: 0 0 0 -0.045em;">3 wk</p>
+          <p style="font-size: 13px; line-height: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent); margin: 14px 0 0;">Typical build</p>
+        </div>
+        <div>
+          <p style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(34px,3.4vw,48px); line-height: 56px; color: var(--color-accent); margin: 0 0 0 -0.045em;">1</p>
+          <p style="font-size: 13px; line-height: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent); margin: 14px 0 0;">Person, start to finish</p>
+        </div>
+      </div>
+    </section>
+
+    <hr style="height:2px;border:0;margin:0;background:var(--color-divider);" />
+
+    <section id="work" style="padding: 84px 0 70px;">
+      <span style="display:block; font-size:13px; line-height:14px; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-accent-700); margin:0 0 14px;">Selected work</span>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 42px clamp(24px,4vw,56px); margin-top: 28px;">
+        <article>
+          <figure class="grayscale" style="margin:0;">
+            <image-slot id="m-work-1" shape="rect" placeholder="Drop a screenshot of the bakery site" style="width:100%;aspect-ratio:4/3;"></image-slot>
+          </figure>
+          <h3 style="font-family:var(--font-heading);font-weight:800;font-size:24px;line-height:28px;letter-spacing:-0.01em;margin:20px 0 0;">Marlow &amp; Sons Bakery</h3>
+          <p style="font-size:15.5px;line-height:28px;margin:6px 0 0;color:color-mix(in srgb, var(--color-text) 78%, transparent);">Online ordering for a two-shop bakery. Pre-orders now cover a third of Saturday trade.</p>
+          <p style="font-size:13px;line-height:14px;letter-spacing:0.08em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 70%, transparent);margin:14px 0 0;">Site + ordering — 2025</p>
+        </article>
+        <article>
+          <figure class="grayscale" style="margin:0;">
+            <image-slot id="m-work-2" shape="rect" placeholder="Drop a screenshot of the dental practice site" style="width:100%;aspect-ratio:4/3;"></image-slot>
+          </figure>
+          <h3 style="font-family:var(--font-heading);font-weight:800;font-size:24px;line-height:28px;letter-spacing:-0.01em;margin:20px 0 0;">Ridgeway Dental</h3>
+          <p style="font-size:15.5px;line-height:28px;margin:6px 0 0;color:color-mix(in srgb, var(--color-text) 78%, transparent);">A booking flow the front desk actually likes. Phone enquiries down, appointments up.</p>
+          <p style="font-size:13px;line-height:14px;letter-spacing:0.08em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 70%, transparent);margin:14px 0 0;">Rebuild — 2025</p>
+        </article>
+        <article>
+          <figure class="grayscale" style="margin:0;">
+            <image-slot id="m-work-3" shape="rect" placeholder="Drop a screenshot of the contractor site" style="width:100%;aspect-ratio:4/3;"></image-slot>
+          </figure>
+          <h3 style="font-family:var(--font-heading);font-weight:800;font-size:24px;line-height:28px;letter-spacing:-0.01em;margin:20px 0 0;">Halcott Roofing</h3>
+          <p style="font-size:15.5px;line-height:28px;margin:6px 0 0;color:color-mix(in srgb, var(--color-text) 78%, transparent);">One page, one phone number, top of the local search results within six weeks.</p>
+          <p style="font-size:13px;line-height:14px;letter-spacing:0.08em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 70%, transparent);margin:14px 0 0;">Site + local SEO — 2024</p>
+        </article>
+      </div>
+    </section>
+
+    <hr style="height:2px;border:0;margin:0;background:var(--color-divider);" />
+
+    <section id="services" style="padding: 84px 0 70px;">
+      <span style="display:block; font-size:13px; line-height:14px; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-accent-700); margin:0 0 14px;">What I do</span>
+      <div style="display:grid;grid-template-columns:minmax(64px,160px) minmax(0,420px) minmax(0,1fr);gap:28px clamp(24px,4vw,72px);align-items:baseline;padding:42px 0;">
+        <p style="font-family:var(--font-heading);font-weight:800;font-size:15px;line-height:28px;margin:0;">01</p>
+        <h2 style="font-family:var(--font-heading);font-weight:800;font-size:24px;line-height:28px;letter-spacing:-0.01em;margin:0;">A new site, start to finish</h2>
+        <div>
+          <p style="font-size:15.5px;line-height:28px;margin:0;max-width:52ch;color:color-mix(in srgb, var(--color-text) 78%, transparent);">Copy, structure, build and launch. You get something you can edit yourself, a domain that's yours, and no monthly platform fee waiting at the end.</p>
+          <p style="font-size:13px;line-height:14px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-accent-700);margin:14px 0 0;">From $2,400 — fixed price</p>
+        </div>
+      </div>
+      <div style="border-top:2px solid var(--color-divider);display:grid;grid-template-columns:minmax(64px,160px) minmax(0,420px) minmax(0,1fr);gap:28px clamp(24px,4vw,72px);align-items:baseline;padding:42px 0;">
+        <p style="font-family:var(--font-heading);font-weight:800;font-size:15px;line-height:28px;margin:0;">02</p>
+        <h2 style="font-family:var(--font-heading);font-weight:800;font-size:24px;line-height:28px;letter-spacing:-0.01em;margin:0;">Fix what's slow or broken</h2>
+        <div>
+          <p style="font-size:15.5px;line-height:28px;margin:0;max-width:52ch;color:color-mix(in srgb, var(--color-text) 78%, transparent);">If your site loads badly on a phone, ranks nowhere, or nobody can update it, I audit it and fix it. You see the before and after numbers.</p>
+          <p style="font-size:13px;line-height:14px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-accent-700);margin:14px 0 0;">From $600 — audit first</p>
+        </div>
+      </div>
+      <div style="border-top:2px solid var(--color-divider);display:grid;grid-template-columns:minmax(64px,160px) minmax(0,420px) minmax(0,1fr);gap:28px clamp(24px,4vw,72px);align-items:baseline;padding:42px 0;">
+        <p style="font-family:var(--font-heading);font-weight:800;font-size:15px;line-height:28px;margin:0;">03</p>
+        <h2 style="font-family:var(--font-heading);font-weight:800;font-size:24px;line-height:28px;letter-spacing:-0.01em;margin:0;">Keep it running</h2>
+        <div>
+          <p style="font-size:15.5px;line-height:28px;margin:0;max-width:52ch;color:color-mix(in srgb, var(--color-text) 78%, transparent);">Updates, backups, small changes and someone to call. Cancel whenever — I'd rather you stayed because it's working.</p>
+          <p style="font-size:13px;line-height:14px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-accent-700);margin:14px 0 0;">$90 a month</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" style="display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:28px clamp(24px,5vw,96px);align-items:center;padding:56px 0 84px;">
+      <div>
+        <span style="display:block; font-size:13px; line-height:14px; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-accent-700); margin:0 0 14px;">Who you'd be working with</span>
+        <h2 style="font-family:var(--font-heading);font-weight:800;font-size:32px;line-height:42px;letter-spacing:-0.015em;margin:0;">One developer, no handoffs</h2>
+        <p style="font-size:15.5px;line-height:28px;color:color-mix(in srgb, var(--color-text) 78%, transparent);margin:20px 0 0;max-width:48ch;">You talk to the person building the thing. No account manager, no ticket queue, no surprise invoice. I work with a handful of businesses at a time so yours gets finished.</p>
+      </div>
+      <figure class="grayscale" style="margin:0;">
+        <image-slot id="m-portrait" shape="rect" placeholder="Drop a photo of yourself" style="width:100%;aspect-ratio:951/665;"></image-slot>
+      </figure>
+    </section>
+
+    <section style="padding:70px 0 98px;">
+      <figure style="margin:0;">
+        <blockquote style="font-family:var(--font-heading);font-weight:800;font-size:clamp(24px,2.6vw,34px);line-height:42px;letter-spacing:-0.015em;max-width:32ch;margin:0;">“He asked about the shop before he asked about the website. That's why it works.”</blockquote>
+        <figcaption style="font-size:15.5px;line-height:28px;color:color-mix(in srgb, var(--color-text) 70%, transparent);margin:42px 0 0;">— Dana Marlow, Marlow &amp; Sons Bakery</figcaption>
+      </figure>
+    </section>
+
+  </div>
+
+  <section style="background: var(--color-accent); color: var(--color-bg);">
+    <div style="max-width:1200px;margin:0 auto;padding:84px clamp(20px,5vw,72px);">
+      <h3 style="font-family:var(--font-heading);font-weight:800;font-size:clamp(34px,4.2vw,56px);line-height:1.06;letter-spacing:-0.015em;margin:0 0 0 -0.058em;">
+        <span style="display:block;">Tell me about your business.</span>
+      </h3>
+      <p style="font-size:17px;line-height:28px;max-width:52ch;margin:28px 0 0;">A twenty-minute call, no charge, no pitch. You'll leave knowing what your site needs and roughly what it costs — whether or not I build it.</p>
+      <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;margin-top:42px;">
+        <button type="button" class="btn btn-ghost" style="color:var(--color-bg);border-color:var(--color-bg);">Book a call</button>
+        <button type="button" class="btn btn-ghost" style="color:var(--color-bg);border-color:var(--color-bg);">hello@ortega.dev</button>
+      </div>
+    </div>
+  </section>
+
+  <div style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,72px);">
+    <footer style="padding:56px 0;font-size:13px;line-height:28px;color:color-mix(in srgb, var(--color-text) 70%, transparent);">Ortega Web — freelance web development for small businesses.</footer>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

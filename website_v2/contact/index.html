@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — Jonathan Nguyen</title>
+<meta name="description" content="Tell me about your business. Twenty minutes, no charge, no pitch. Email hello@jdnguyen.tech or book a call.">
+<link rel="canonical" href="https://www.jdnguyen.tech/contact/">
+<script>
+  (function () {
+    try {
+      var t = window.localStorage.getItem('jn-theme');
+      document.documentElement.dataset.theme = (t === 'light' || t === 'dark') ? t : 'system';
+    } catch (e) {
+      document.documentElement.dataset.theme = 'system';
+    }
+  })();
+</script>
+<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/site.css">
+<script defer src="/assets/theme.js"></script>
+<script defer src="/assets/form.js"></script>
+</head>
+<body>
+
+  <nav class="nav nav-pad">
+    <span class="nav-brand">Jonathan Nguyen</span>
+    <a class="btn btn-ghost" style="border:0;padding:6px 10px;gap:8px;" href="/">Home</a>
+    <a class="btn btn-ghost" style="border:0;padding:6px 10px;gap:8px;" href="/work/">Work</a>
+    <a class="btn btn-ghost" style="border:0;padding:6px 10px;gap:8px;" href="/about/">About</a>
+    <span style="display:flex;align-items:center;gap:2px;margin-left:auto;border:2px solid var(--color-divider);">
+      <button type="button" class="btn btn-ghost" style="border:0;padding:6px 10px;gap:6px;font-size:13px;" data-theme-set="light">Light</button>
+      <button type="button" class="btn btn-ghost" style="border:0;padding:6px 10px;gap:6px;font-size:13px;" data-theme-set="dark">Dark</button>
+      <button type="button" class="btn btn-ghost" style="border:0;padding:6px 10px;gap:6px;font-size:13px;" data-theme-set="system">Auto</button>
+    </span>
+    <a class="btn btn-primary" href="/contact/" aria-current="page">Start a project</a>
+  </nav>
+
+  <main class="container">
+
+    <section class="split pagetop" style="align-items:start;padding:112px 0 84px;">
+      <div>
+        <h1 style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(38px,5vw,68px); line-height: 1.06; letter-spacing: -0.02em; margin: 0 0 0 -0.058em;">Tell me about your business.</h1>
+        <p style="font-size:17px;line-height:28px;max-width:52ch;margin:42px 0 0;">Twenty minutes, no charge, no pitch. You will leave knowing what you need and roughly what it costs, whether or not I am the one who builds it.</p>
+        <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;margin-top:28px;">
+          <a class="btn btn-primary" href="https://cal.com/jonathan-nguyen/qc" target="_blank" rel="noopener">Book the call</a>
+        </div>
+        <div style="margin-top:42px;display:grid;gap:14px;">
+          <p style="font-size:13px;line-height:14px;letter-spacing:0.08em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 70%, transparent);margin:0;">Or just email me</p>
+          <p style="font-family:var(--font-heading);font-weight:800;font-size:24px;line-height:28px;margin:0;"><a href="mailto:hello@jdnguyen.tech">hello@jdnguyen.tech</a></p>
+          <p style="font-size:13px;line-height:14px;letter-spacing:0.08em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 70%, transparent);margin:14px 0 0;">Or look at the code</p>
+          <p style="font-family:var(--font-heading);font-weight:800;font-size:24px;line-height:28px;margin:0;"><a href="https://github.com/jonathan-d-nguyen" target="_blank" rel="noopener">github.com/jonathan-d-nguyen</a></p>
+          <p style="font-size:15.5px;line-height:28px;margin:14px 0 0;color:color-mix(in srgb, var(--color-text) 78%, transparent);max-width:44ch;">I answer within one working day. If I am not the right fit for the job, you will hear it in the first reply rather than the third.</p>
+        </div>
+      </div>
+      <div>
+        <form id="jn-form" novalidate style="display:grid;gap:20px;">
+          <div class="field"><label for="jn-name">Your name</label><input class="input" id="jn-name" name="name" type="text" autocomplete="name" required placeholder="Who I'll be speaking to"></div>
+          <div class="field"><label for="jn-biz">Business</label><input class="input" id="jn-biz" name="business" type="text" autocomplete="organization" placeholder="What you do, and where"></div>
+          <div class="field"><label for="jn-email">Email</label><input class="input" id="jn-email" name="email" type="email" autocomplete="email" required placeholder="you@yourbusiness.com"></div>
+          <div class="field"><label for="jn-need">What you need</label><textarea class="input" id="jn-need" name="message" rows="5" required placeholder="A new site, a network that keeps dropping, both, or something you cannot name yet."></textarea></div>
+          <input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
+
+          <div style="display:flex;align-items:center;gap:var(--space-4);flex-wrap:wrap;margin-top:14px;">
+            <button type="submit" class="btn btn-primary">Send it</button>
+            <p id="jn-form-status" class="form-status" role="status" hidden></p>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="container">
+    <footer style="display:flex;flex-wrap:wrap;gap:14px 42px;justify-content:space-between;padding:56px 0;font-size:13px;line-height:28px;color:color-mix(in srgb, var(--color-text) 70%, transparent);">
+      <span>Jonathan Nguyen. Networks and websites for small businesses.</span>
+      <span style="display:flex;flex-wrap:wrap;gap:8px 28px;"><a href="mailto:hello@jdnguyen.tech">hello@jdnguyen.tech</a><a href="https://github.com/jonathan-d-nguyen" target="_blank" rel="noopener">github.com/jonathan-d-nguyen</a></span>
+    </footer>
+  </div>
+
+</body>
+</html>

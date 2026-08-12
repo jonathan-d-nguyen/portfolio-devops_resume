@@ -1,0 +1,17 @@
+name = "jdnguyen-contact"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+
+# Non-secret vars. Set RESEND_API_KEY with:  wrangler secret put RESEND_API_KEY
+[vars]
+TO_EMAIL = "hello@jdnguyen.tech"
+FROM_EMAIL = "site@jdnguyen.tech"
+ALLOW_ORIGIN = "https://www.jdnguyen.tech"
+
+# Expose the Worker on its own hostname so it works regardless of whether the
+# site's DNS records are proxied through Cloudflare (the site origin is AWS
+# CloudFront). Requires api.jdnguyen.tech to exist as a proxied record.
+# Alternatively drop this block and use the default *.workers.dev URL.
+# [[routes]]
+# pattern = "api.jdnguyen.tech/contact"
+# custom_domain = true
