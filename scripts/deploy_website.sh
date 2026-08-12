@@ -35,11 +35,16 @@ esac
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
+# Deploy source: the Modernist portfolio (website_v2/), which serves the
+# public site at / and the digital business card at /card/. The legacy
+# website_files/ card lives on only as a reference until it is removed.
 echo "Uploading files to $ENVIRONMENT (s3://$BUCKET)..."
-aws s3 sync "$REPO_ROOT/website_files/" "s3://$BUCKET" \
+aws s3 sync "$REPO_ROOT/website_v2/" "s3://$BUCKET" \
+    --delete \
     --exclude ".DS_Store" \
     --exclude "*/.DS_Store" \
     --exclude "*copy*" \
+    --exclude "*.md" \
     --exclude ".git/*"
 
 echo "Resolving CloudFront distribution for $DOMAIN..."

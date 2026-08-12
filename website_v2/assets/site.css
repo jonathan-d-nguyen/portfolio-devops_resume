@@ -1,0 +1,107 @@
+/* site.css — page-level styles for jdnguyen.tech.
+   The Modernist token sheet and component classes live in styles.css and are
+   ported verbatim. This file adds only what the four-page site needs on top:
+   the dark-ground theme, the three responsive grid patterns, and the small
+   nav/container helpers. Everything still reads from the design-system tokens. */
+
+body { margin: 0; text-wrap: pretty; background: var(--color-bg); }
+
+/* Links are body-size, so they use the deep accent step for contrast, never
+   --color-accent itself (see the Modernist contrast rule). */
+a { color: var(--color-accent-700); text-underline-offset: 3px; }
+a:hover { color: var(--color-accent); }
+
+/* Accent override: this design remaps the Modernist accent from the sheet's red
+   to blue (#0b5fd0). The ported styles.css keeps its original ramp; these :root
+   overrides win. --color-paper is mode-independent so the accent closing banner
+   keeps paper-white type in both light and dark. */
+:root {
+  --color-paper: #f3f2f2;
+  --color-accent: #0b5fd0;
+  --color-accent-100: #eef4ff;
+  --color-accent-200: #d9e6ff;
+  --color-accent-300: #bcd2ff;
+  --color-accent-400: #85adff;
+  --color-accent-500: #3d82f5;
+  --color-accent-600: #1a5fd6;
+  --color-accent-700: #0b47a8;
+  --color-accent-800: #063077;
+  --color-accent-900: #10254d;
+  --color-accent-2: #0b5fd0;
+  --color-accent-2-100: #eef4ff;
+  --color-accent-2-200: #d9e6ff;
+  --color-accent-2-300: #bcd2ff;
+  --color-accent-2-400: #85adff;
+  --color-accent-2-500: #3d82f5;
+  --color-accent-2-600: #1a5fd6;
+  --color-accent-2-700: #0b47a8;
+  --color-accent-2-800: #063077;
+  --color-accent-2-900: #10254d;
+}
+
+html[data-theme="dark"] {
+  --color-bg: #1a1918;
+  --color-surface: #262423;
+  --color-text: #f3f2f2;
+  --color-divider: color-mix(in srgb, #f3f2f2 35%, transparent);
+  --color-accent-700: #85adff;
+}
+html[data-theme="dark"] .btn-primary { color: var(--color-paper); }
+@media (prefers-color-scheme: dark) {
+  html[data-theme="system"] {
+    --color-bg: #1a1918;
+    --color-surface: #262423;
+    --color-text: #f3f2f2;
+    --color-divider: color-mix(in srgb, #f3f2f2 35%, transparent);
+    --color-accent-700: #85adff;
+  }
+  html[data-theme="system"] .btn-primary { color: var(--color-paper); }
+}
+
+/* — layout helpers — */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 72px); }
+
+/* Keep the nav content flush with the container edge even though the bar is
+   full-bleed. */
+.nav-pad { padding-inline: max(clamp(20px, 5vw, 72px), calc((100% - 1200px) / 2 + clamp(20px, 5vw, 72px))); }
+
+/* — the three repeating grid patterns (need media queries, hence classes) — */
+.nav { flex-wrap: wrap; row-gap: 8px; }
+.nav .btn { min-height: 44px; } /* comfortable touch targets */
+
+@media (max-width: 640px) {
+  .nav { padding-block: 8px; }
+  .nav .nav-brand { flex: 1 0 100%; }
+  .nav .btn { padding-inline: 12px; }
+  .input, textarea.input { font-size: 16px; } /* 16px stops iOS zoom-on-focus */
+  .pagetop { padding-top: 64px !important; }
+}
+
+.rowgrid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+.rowgrid > :first-child { display: none; } /* the numeral is hidden below 900px */
+
+.split { display: grid; grid-template-columns: 1fr; gap: 42px; }
+
+.statrow { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 42px clamp(24px, 4vw, 56px); }
+
+@media (min-width: 900px) {
+  .rowgrid { grid-template-columns: 64px repeat(auto-fit, minmax(300px, 1fr)); gap: 20px clamp(24px, 4vw, 64px); }
+  .rowgrid > :first-child { display: block; }
+  .split { grid-template-columns: var(--split, 1fr 1fr); gap: 28px clamp(24px, 5vw, 96px); }
+}
+
+/* — nav active markers (8px page square, 6px theme square) — */
+.square8 { width: 8px; height: 8px; background: var(--color-accent); display: block; }
+.square6 { width: 6px; height: 6px; background: var(--color-accent); display: block; }
+
+/* — image placeholder (no assets shipped; a flat surface slot, not a float) — */
+.imgslot {
+  width: 100%; display: grid; place-items: center; padding: 24px;
+  background: var(--color-surface);
+  color: color-mix(in srgb, var(--color-text) 55%, transparent);
+  font-size: 13px; line-height: 18px; letter-spacing: 0.08em; text-transform: uppercase;
+  text-align: center;
+}
+
+/* — form status line — */
+.form-status { font-size: 15.5px; line-height: 28px; margin: 0; }
